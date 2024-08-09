@@ -7,6 +7,8 @@ let grass = 10000
 let rope = 0
 let fireunlocked = false
 let axeunlocked = false
+let toolsunlocked = false
+let Buildings = document.getElementById("buildings");
 
 document.getElementById("getwood").onclick=function(){
   if (tree>=woodperclick){
@@ -23,9 +25,10 @@ document.getElementById("getwood").onclick=function(){
     window.alert("There are no more trees left!");
   }
 }
+
 document.getElementById("getstone").onclick=function(){
   if(rock>0){
-stone++;
+    stone++;
     rock--;
     document.getElementById("stoneamount").textContent="You have "+stone+" stone."
     document.getElementById("rockamount").textContent="Number of rocks: "+rock;
@@ -34,6 +37,7 @@ stone++;
 window.alert("There are no more rocks left!");
   }
 }
+
 document.getElementById("getrope").onclick=function(){
   if(grass>0){
    grass--;
@@ -46,8 +50,7 @@ document.getElementById("grassamount").textContent="Clumps of grass: "+grass;
   }
 }
 
-
-document.getElementById("researchfire").onclick=function(){
+document.getElementById("fire").onclick=function(){
   if (wood>49 && fireunlocked==false&&stone>9&&rope>24){
  fireunlocked = true
     wood-=50
@@ -61,12 +64,16 @@ document.getElementById("researchfire").onclick=function(){
     window.alert("You have began researching fire!");
     window.setTimeout(UnlockFire, 5000);
   }
+  else if(fireunlocked==true){
+    window.alert("You have already researched the technology!");
+  }
   else{
-window.alert("You do not have enough resources or you have already unlocked the technology!");
+    window.alert("You do not have enough resources!");
   }
 }
 function UnlockFire(){
      window.alert("You have unlocked fire! Fireplace building unlocked!");
+     Buildings.style.display="block";
 }
 
 document.getElementById("buildaxe").onclick=function(){
@@ -83,13 +90,45 @@ document.getElementById("buildaxe").onclick=function(){
     window.alert("You have begun building an axe!")
     window.setTimeout(BuiltAxe, 3000)
   }
+  else if(axeunlocked==true){
+    window.alert("You have already built the tool!");
+  }
   else{
-    window.alert("You do not have the resources or you have already built the tool!")
+    window.alert("You do not have enough resources!");
   }
 
 }
+
 function BuiltAxe(){
   window.alert("You have built an axe!")
   woodperclick+=4
 document.getElementById("woodperclick").textContent="Wood per click: "+woodperclick;
+}
+
+document.getElementById("basictools").onclick=function(){
+  if(wood>9&&stone>4&&rope>14&&toolsunlocked==false){
+    toolsunlocked=true
+    wood-=10
+    stone-=5
+    rope-=15
+
+    document.getElementById("woodamount").textContent="You have "+wood+" wood."
+    document.getElementById("stoneamount").textContent="You have "+stone+" stone."
+    document.getElementById("ropeamount").textContent="You have "+rope+" rope."
+    
+    window.alert("You have begun researching basic tools!")
+    window.setTimeout(UnlockTools, 5000)
+  }
+  else if(toolsunlocked==true){
+    window.alert("You have already researched the technology!");
+  }
+  else{
+    window.alert("You do not have enough resources!");
+  }
+
+}
+
+function UnlockTools(){
+  window.alert("You have unlocked basic tools! Tools section unlocked!");
+  document.getElementById("tools").style.display="block"
 }
