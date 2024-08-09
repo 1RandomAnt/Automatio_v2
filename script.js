@@ -1,5 +1,5 @@
 let wood = 0
-let tree = 100
+let tree = 1000
 let woodperclick = 1
 let rock = 100
 let stone = 0
@@ -91,4 +91,5 @@ document.getElementById("buildaxe").onclick=function(){
 function BuiltAxe(){
   window.alert("You have built an axe!")
   woodperclick+=4
+document.getElementById("woodperclick").textContent="Wood per click: "+woodperclick;
 }
