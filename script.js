@@ -1,11 +1,11 @@
-let wood = 1000
+let wood = 0
 let tree= 1000
 let woodperclick = 1
 let rock = 100
-let stone = 10000
+let stone = 0
 let grass = 10000
-let rope = 1000
-let food = 1000
+let rope = 0
+let food = 0
 let energy = 100
 let wildfood= 1000
 let fireresearch = false
@@ -13,8 +13,7 @@ let axecraft = false
 let toolsresearch = false
 let Buildings = document.getElementById("buildings");
 
-
-document.getElementById("getwood").onclick=function(){
+function getResource(resource, source, perclick){
   if (tree>=woodperclick){
     wood=wood+woodperclick;
     tree=tree-woodperclick;
@@ -28,6 +27,25 @@ document.getElementById("getwood").onclick=function(){
   }else{
     window.alert("There are no more trees left!");
   }
+    /*  
+  if (source>=perclick){
+    resource+=perclick;
+    source-=perclick;
+    document.getElementById("woodamount").textContent="You have "+resource+" wood.";
+    document.getElementById("treeamount").textContent="Number of trees: "+source;
+  }else if(source>0){
+    resource+=source;
+    source=0;
+    document.getElementById("woodamount").textContent="You have "+resource+" wood.";
+    document.getElementById("treeamount").textContent="Number of trees: "+source;   
+  }else{
+    window.alert("There are no more trees left!");
+  }
+  */
+}
+
+document.getElementById("getwood").onclick=function(){
+ getResource(wood, tree, woodperclick);
 }
 
 document.getElementById("getstone").onclick=function(){
