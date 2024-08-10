@@ -9,6 +9,11 @@
 <body>
     <h1>Clicker Game</h1>
 
+    <h2>Food</h2>
+    <p id="energy">Energy: 100/100</p>
+    <p id="foodamount">Food: 0</p>
+    <button id="eat">Eat Food</button>
+
     <h2>Environment</h2> 
     
     <div style="display:none">
@@ -17,6 +22,10 @@
     </div>
 
     <h3>Forest</h3>
+    <p id="wildfood">Food in the wild: 1000</p>
+    <p>Food per click: 1</p>
+    <button id="forage">Forage</button>
+
     <p id="treeamount">Number of trees: 1000</p>  
     <p id="woodperclick">Wood per click: 1</p>
     <button id="getwood">Get Wood</button>
@@ -36,21 +45,21 @@
  
     <div id="tools" style="display:none">
         <h2>Tools</h2>
-        <button id="buildaxe">Build Axe: Requires 2 wood, 3 stone, and 10 rope; takes 3 seconds. Increases wood per click by 4.</button>
+        <button id="axe">Craft Axe: Requires 2 wood, 3 stone, 10 rope, and 30 energy; takes 3 seconds. Increases wood per click by 4.</button>
     </div>
 
     <div id="buildings" style="display:none">
         <h2>Buildings</h2>
-        <button id="buildfireplace">Build fireplace: Enables you to cook food.</button>
+        <button id="campfire">Build campfire: Enables you to cook food.</button>
     </div>
 
     <h2>Technology</h2>
     <div>
-        <button id="basictools">Research basic tools: Requires 10 wood, 5 stone and 15 rope; takes 5 seconds. Unlocks tools section.</button>  
+        <button id="basictools">Research basic tools: Requires 10 wood, 5 stone, 15 rope, and 50 energy; takes 5 seconds. Unlocks tools section.</button>  
     </div>
     <br>
     <div>
-        <button id="fire">Research fire: Requires 50 wood, 10 stone and 25 rope; takes 5 seconds. Enables the construction of fireplace.</button>
+        <button id="fire">Research fire: Requires 50 wood, 10 stone and 25 rope, and 50 energy; takes 5 seconds. Enables the construction of campfire.</button>
     </div>
     <script src="script.js"></script>     
 
