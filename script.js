@@ -3,8 +3,11 @@ let tree= 1000
 let woodperclick = 1
 let rock = 100
 let stone = 0
+let stoneperclick = 1
 let grass = 10000
+let plants = 0
 let rope = 0
+let ropeperclick = 1
 let food = 0
 let energy = 100
 let wildfood= 1000
@@ -13,17 +16,31 @@ let axecraft = false
 let toolsresearch = false
 let Buildings = document.getElementById("buildings");
 
+function Update(){
+document.getElementById("woodamount").textContent="You have "+wood+" wood.";
+document.getElementById("treeamount").textContent="Number of trees: "+tree;
+document.getElementById("woodperclick").textContent="Wood per click: "+woodperclick;
+document.getElementById("rockamount").textContent="Number of rocks: "+rock;
+document.getElementById("stoneamount").textContent="You have "+stone+" stone."
+document.getElementById("stoneperclick").textContent="Stone per click: "+stoneperclick;
+document.getElementById("grassamount").textContent="Clumps of grass: "+grass;
+document.getElementById("plantamount").textContent= "You have "+plants+" plants.";
+document.getElementById("ropeamount").textContent= "You have "+rope+" rope.";
+document.getElementById("ropeperclick").textContent="Rope per click: "+ropeperclick;
+document.getElementById("foodamount").textContent="Food: "+food;
+document.getElementById("energy").textContent="Energy: "+energy+"/100"
+document.getElementById("wildfood").textContent="Food in the wild: "+wildfood
+}
+
 function getResource(resource, source, perclick){
   if (tree>=woodperclick){
     wood=wood+woodperclick;
     tree=tree-woodperclick;
-    document.getElementById("woodamount").textContent="You have "+wood+" wood.";
-    document.getElementById("treeamount").textContent="Number of trees: "+tree;
+    Update();
   }else if(tree>0){
     wood+=tree;
     tree=0;
-    document.getElementById("woodamount").textContent="You have "+wood+" wood.";
-    document.getElementById("treeamount").textContent="Number of trees: "+tree;   
+    Update();
   }else{
     window.alert("There are no more trees left!");
   }
@@ -31,13 +48,11 @@ function getResource(resource, source, perclick){
   if (source>=perclick){
     resource+=perclick;
     source-=perclick;
-    document.getElementById("woodamount").textContent="You have "+resource+" wood.";
-    document.getElementById("treeamount").textContent="Number of trees: "+source;
+    Update();
   }else if(source>0){
     resource+=source;
     source=0;
-    document.getElementById("woodamount").textContent="You have "+resource+" wood.";
-    document.getElementById("treeamount").textContent="Number of trees: "+source;   
+    Update();
   }else{
     window.alert("There are no more trees left!");
   }
@@ -52,8 +67,7 @@ document.getElementById("getstone").onclick=function(){
   if(rock>0){
     stone++;
     rock--;
-    document.getElementById("stoneamount").textContent="You have "+stone+" stone."
-    document.getElementById("rockamount").textContent="Number of rocks: "+rock;
+    Update();
   }
   else{
 window.alert("There are no more rocks left!");
@@ -64,14 +78,12 @@ document.getElementById("getrope").onclick=function(){
   if(grass>0){
    grass--;
    rope++;
-   document.getElementById("ropeamount").textContent= "You have "+rope+" rope.";
-document.getElementById("grassamount").textContent="Clumps of grass: "+grass;
+   Update();
   }
   else{
   window.alert("There is no more grass!")
   }
 }
-
 document.getElementById("fire").onclick=function(){
   let response = "y"
   if(wood>49 && fireresearch==false&&stone>9&&rope>24&&energy>50){
@@ -84,12 +96,7 @@ document.getElementById("fire").onclick=function(){
       stone-=10
       rope-=25
       energy-=50
-      
-      document.getElementById("woodamount").textContent="You have "+wood+" wood."
-      document.getElementById("stoneamount").textContent="You have "+stone+" stone."
-      document.getElementById("ropeamount").textContent="You have "+rope+" rope."
-      document.getElementById("energy").textContent="Energy: "+energy+"/100"
-    
+      Update();
       window.alert("You have began researching fire!");
       document.getElementById("fire").textContent="Researching..."
       window.setTimeout(ResearchFire, 5000);  
@@ -123,12 +130,7 @@ document.getElementById("axe").onclick=function(){
     stone-=3
     rope-=10
     energy-=30
-
-    document.getElementById("woodamount").textContent="You have "+wood+" wood."
-    document.getElementById("stoneamount").textContent="You have "+stone+" stone."
-    document.getElementById("ropeamount").textContent="You have "+rope+" rope."
-    document.getElementById("energy").textContent="Energy: "+energy+"/100"
-    
+    Update();
     window.alert("You have begun crafting an axe!")
     document.getElementById("axe").textContent="Crafting..."
     window.setTimeout(CraftAxe, 3000) 
@@ -150,7 +152,7 @@ function CraftAxe(){
  window.alert("You have crafted an axe!")
  document.getElementById("axe").style.display="none"
  woodperclick+=4
- document.getElementById("woodperclick").textContent="Wood per click: "+woodperclick;
+ Update();
 }
 
 document.getElementById("basictools").onclick=function(){
@@ -165,12 +167,7 @@ document.getElementById("basictools").onclick=function(){
     stone-=5
     rope-=15
     energy-=50
-
-    document.getElementById("woodamount").textContent="You have "+wood+" wood."
-    document.getElementById("stoneamount").textContent="You have "+stone+" stone."
-    document.getElementById("ropeamount").textContent="You have "+rope+" rope."
-    document.getElementById("energy").textContent="Energy: "+energy+"/100"
-    
+    Update();
     window.alert("You have begun researching basic tools!")
     document.getElementById("basictools").textContent="Researching..."
     window.setTimeout(ResearchTools, 5000)
@@ -198,8 +195,7 @@ document.getElementById("forage").onclick=function(){
   if(wildfood>0){
     wildfood--
     food++
-    document.getElementById("foodamount").textContent="Food: "+food
-    document.getElementById("wildfood").textContent="Food in the wild: "+wildfood
+    Update();
   }
   else{
     window.alert("There is no more food to collect!")
@@ -210,10 +206,8 @@ document.getElementById("forage").onclick=function(){
 function Tick(){
   window.setTimeout(Tick, 1000)
   energy--
-  document.getElementById("energy").textContent="Energy: "+energy+"/100"
-  
   wildfood++
-  document.getElementById("wildfood").textContent="Food in the wild: "+wildfood
+  Update();
 
   if(energy==0){
     window.alert("DEFEAT: Your energy level reached 0.")
@@ -231,8 +225,7 @@ document.getElementById("eat").onclick=function(){
   if(food>0&&energy<100){
     food-=1;
     energy+=1;
-    document.getElementById("foodamount").textContent="Food: "+food
-    document.getElementById("energy").textContent="Energy: "+energy+"/100"
+    Update();
   }
   else if(food==0){
     window.alert("You do not have food!")
