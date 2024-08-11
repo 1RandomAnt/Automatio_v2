@@ -42,9 +42,11 @@
     <p id="woodamount">You have 0 wood.</p>
     <p id="stoneamount">You have 0 stone.</p>
     <p id="plantamount">You have 0 plant(s).</p>
-    <p id="ropeperclick">Rope per click: 1</p>
+    <div id="rope" style="display:none">
+      <p id="ropeperclick">Rope per click: 1</p>
     <button id="makerope">Make rope</button>
     <p id="ropeamount">You have 0 rope.</p>
+    </div>
  
     <div id="tools" style="display:none">
         <h2>Tools</h2>
@@ -57,13 +59,21 @@
     </div>
 
     <h2>Technology</h2>
-    <div>
-        <button id="basictools">Research basic tools: Requires 10 wood, 5 stone, 15 rope, and 50 energy; takes 5 seconds. Unlocks tools section.</button>  
+    
+    <div id="ropediv">
+  <button id="ropemaking">Research ropemaking: Requires 5 wood, 5 stone, 20 plants, and 20 energy; takes 2 seconds. Unlocks rope, enables you to research basic tools.</button>
+    <br><br>
     </div>
-    <br>
-    <div>
+    
+    <div id="toolsdiv" style="display:none">
+      <button id="basictools">Research basic tools: Requires 10 wood, 5 stone, 15 rope, and 50 energy; takes 5 seconds. Unlocks tools section.</button>
+          <br><br>
+        </div>
+        
+        <div id="firediv">
         <button id="fire">Research fire: Requires 50 wood, 10 stone, 25 plants, and 50 energy; takes 5 seconds. Enables the construction of campfire.</button>
-    </div>
+        </div>
+        
     <script src="script.js"></script>     
 
 </body>
