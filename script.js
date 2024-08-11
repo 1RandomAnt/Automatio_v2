@@ -17,6 +17,7 @@ let fireresearch = false
 let axecraft = false
 let toolsresearch = false
 let Buildings = document.getElementById("buildings");
+let roperesearch = false
 
 function Update(){
   document.getElementById("woodamount").textContent="You have "+wood+" wood.";
@@ -118,7 +119,7 @@ document.getElementById("fire").onclick=function(){
 
 function ResearchFire(){
      window.alert("You have researched fire! Campfire building unlocked!");
-     document.getElementById("fire").style.display="none"
+     document.getElementById("firediv").style.display="none"
      Buildings.style.display="block";
 }
 
@@ -133,13 +134,23 @@ function CraftAxe(){
  Update();
 }
 
+document.getElementById("ropemaking").onclick=function(){
+  roperesearch=Create(5, 5, 20, 0, 20, 2000, roperesearch, "rope making", "ropemaking", ResearchRope, "researching");
+}
+function ResearchRope(){
+  window.alert("You have researched rope making! Rope unlocked! You are able to research basic tools!");
+  document.getElementById("ropediv").style.display="none"
+  document.getElementById("rope").style.display="block"
+  document.getElementById("toolsdiv").style.display="block"
+}
+
 document.getElementById("basictools").onclick=function(){
   toolsresearch=Create(10, 5, 0, 15, 50, 5000, toolsresearch, "basic tools", "basictools", ResearchTools, "researching");
 }
 
 function ResearchTools(){
   window.alert("You have researched basic tools! Tools section unlocked!");
-  document.getElementById("basictools").style.display="none"
+  document.getElementById("toolsdiv").style.display="none"
   document.getElementById("tools").style.display="block"
 }
 
@@ -156,7 +167,7 @@ function Tick(){
     window.alert("Your are getting tired. You should probably eat some food.")
   }
   if(energy==10){
-    window.alert("You are very tired! You need to eat some food soon or you will die!")
+    window.alert("You are very tired! You need to eat some food soon, or you will lose!")
   }
 }
 window.setTimeout(Tick, 1000)
