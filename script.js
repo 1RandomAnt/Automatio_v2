@@ -161,7 +161,7 @@ function Tick(){
   Update();
 
   if(energy==0){
-    window.alert("DEFEAT: Your energy level reached 0.")
+    window.location.replace("Defeat.html")
   }
   else if(energy==50){
     window.alert("Your are getting tired. You should probably eat some food.")
