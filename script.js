@@ -21,12 +21,14 @@ let Buildings = document.getElementById("buildings");
 let roperesearch = false
 let hammerresearch = false
 
+/*
 //devmode
 wood=1000
 stone=1000
 plants= 1000
 rope = 1000
 energy = 1000
+*/
 
 function Update(){
   document.getElementById("woodamount").textContent="You have "+wood+" wood.";
