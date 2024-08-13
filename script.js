@@ -15,9 +15,18 @@ let energy = 100
 let wildfood= 1000
 let fireresearch = false
 let axecraft = false
+let hammercraft = false
 let toolsresearch = false
 let Buildings = document.getElementById("buildings");
 let roperesearch = false
+let hammerresearch = false
+
+//devmode
+wood=1000
+stone=1000
+plants= 1000
+rope = 1000
+energy = 1000
 
 function Update(){
   document.getElementById("woodamount").textContent="You have "+wood+" wood.";
@@ -114,7 +123,7 @@ function Create(Rwood, Rstone, Rplants, Rrope, Renergy, time, researching, name,
 }
 
 document.getElementById("fire").onclick=function(){
-  fireresearch=Create(50, 10, 25, 0, 50, 5000, fireresearch, "fire", "fire", ResearchFire, "researching");
+  fireresearch=Create(50, 10, 25, 0, 25, 5000, fireresearch, "fire", "fire", ResearchFire, "researching");
 }
 
 function ResearchFire(){
@@ -124,34 +133,57 @@ function ResearchFire(){
 }
 
 document.getElementById("axe").onclick=function(){
-  axecraft=Create(2, 3, 0, 10, 30, 3000, axecraft, "an axe", "axe", CraftAxe, "crafting");
+  axecraft=Create(5, 5, 0, 10, 15, 3000, axecraft, "an axe", "axe", CraftAxe, "crafting");
 }
 
 function CraftAxe(){
- window.alert("You have crafted an axe!")
+ window.alert("You have crafted an axe! Wood per click increased by 4.")
  document.getElementById("axe").style.display="none"
  woodperclick+=4
  Update();
 }
 
-document.getElementById("ropemaking").onclick=function(){
-  roperesearch=Create(5, 5, 20, 0, 20, 2000, roperesearch, "rope making", "ropemaking", ResearchRope, "researching");
+document.getElementById("crafthammer").onclick=function(){
+  hammercraft=Create(5, 5, 0, 10, 15, 3000, hammercraft, "a hammer", "crafthammer", CraftHammer, "crafting");
 }
+
+function CraftHammer(){
+ window.alert("You have crafted a hammer! Stone per click increased by 4.")
+ document.getElementById("hammer").style.display="none"
+ stoneperclick+=4
+ Update();
+}
+
+document.getElementById("ropemaking").onclick=function(){
+  roperesearch=Create(5, 5, 20, 0, 10, 2000, roperesearch, "rope making", "ropemaking", ResearchRope, "researching");
+}
+
 function ResearchRope(){
-  window.alert("You have researched rope making! Rope unlocked! You are able to research basic tools!");
+  window.alert("You have researched rope making! Rope unlocked! You are able to research toolmaking!");
   document.getElementById("ropediv").style.display="none"
   document.getElementById("rope").style.display="block"
   document.getElementById("toolsdiv").style.display="block"
 }
 
-document.getElementById("basictools").onclick=function(){
-  toolsresearch=Create(10, 5, 0, 15, 50, 5000, toolsresearch, "basic tools", "basictools", ResearchTools, "researching");
+document.getElementById("toolmaking").onclick=function(){
+  toolsresearch=Create(10, 5, 0, 15, 25, 5000, toolsresearch, "toolmaking", "toolmaking", ResearchTools, "researching");
 }
 
 function ResearchTools(){
-  window.alert("You have researched basic tools! Tools section unlocked!");
+  window.alert("You have researched toolmaking! Tools section unlocked! You are able to research hammer making!");
   document.getElementById("toolsdiv").style.display="none"
   document.getElementById("tools").style.display="block"
+  document.getElementById("hammerdiv").style.display="block"
+}
+
+document.getElementById("hammermaking").onclick=function(){
+  hammerresearch=Create(5, 15, 0, 5, 20, 4000, hammerresearch, "hammer making", "hammermaking", ResearchHammer, "researching");
+}
+
+function ResearchHammer(){
+  window.alert("You have researched hammer making!");
+  document.getElementById("hammerdiv").style.display="none"
+  document.getElementById("hammer").style.display="block"
 }
 
 function Tick(){
