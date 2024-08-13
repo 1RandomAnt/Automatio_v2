@@ -50,7 +50,11 @@
  
     <div id="tools" style="display:none">
         <h2>Tools</h2>
-        <button id="axe">Craft Axe: Requires 2 wood, 3 stone, 10 rope, and 30 energy; takes 3 seconds. Increases wood per click by 4.</button>
+        <button id="axe">Craft Axe: Requires 5 wood, 5 stone, 10 rope, and 15 energy; takes 3 seconds. Increases wood per click by 4.</button>
+        <br><br>
+        <div id="hammer" style="display:none">
+          <button id="crafthammer">Craft Hammer: Requires 5 wood, 15 stone, 5 rope, and 20 energy; takes 4 seconds. Increases stone per click by 4.</button>
+        </div>
     </div>
 
     <div id="buildings" style="display:none">
@@ -61,17 +65,22 @@
     <h2>Technology</h2>
     
     <div id="ropediv">
-  <button id="ropemaking">Research ropemaking: Requires 5 wood, 5 stone, 20 plants, and 20 energy; takes 2 seconds. Unlocks rope, enables you to research basic tools.</button>
+  <button id="ropemaking">Research ropemaking: Requires 5 wood, 5 stone, 20 plants, and 10 energy; takes 2 seconds. Unlocks rope, enables you to research toolmaking.</button>
     <br><br>
     </div>
     
     <div id="toolsdiv" style="display:none">
-      <button id="basictools">Research basic tools: Requires 10 wood, 5 stone, 15 rope, and 50 energy; takes 5 seconds. Unlocks tools section.</button>
+      <button id="toolmaking">Research toolmaking: Requires 10 wood, 5 stone, 15 rope, and 25 energy; takes 5 seconds. Unlocks tools section, enables you to research hammer making.</button>
           <br><br>
         </div>
         
+       <div id="hammerdiv" style="display:none">
+        <button id="hammermaking">Research hammer making: Requires 10 wood, 25 stone, 5 rope, and 20 energy; takes 4 seconds. Enables the construction of hammer.</button>
+        <br><br>
+        </div>
+        
         <div id="firediv">
-        <button id="fire">Research fire: Requires 50 wood, 10 stone, 25 plants, and 50 energy; takes 5 seconds. Enables the construction of campfire.</button>
+        <button id="fire">Research fire: Requires 50 wood, 10 stone, 25 plants, and 25 energy; takes 5 seconds. Enables the construction of campfire.</button>
         </div>
         
     <script src="script.js"></script>     
