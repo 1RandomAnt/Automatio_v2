@@ -1,55 +1,45 @@
-let tree= 1000
-let wood = 0
-let woodperclick = 1
-let rock = 100
-let stone = 0
-let stoneperclick = 1
-let grass = 10000
-let plants = 0
-let plantsperclick = 1
-let rope = 0
-let ropeperclick = 1
-let food = 0
-let foodperclick = 1
-let energy = 100
-let wildfood= 1000
-let fireresearch = false
-let axecraft = false
-let hammercraft = false
-let toolsresearch = false
-let Buildings = document.getElementById("buildings");
-let roperesearch = false
-let hammerresearch = false
-
-/*
-//devmode
-wood=1000
-stone=1000
-plants= 1000
-rope = 1000
-energy = 1000
-*/
+let tree = 1000;
+let wood = 0;
+let woodperclick = 1;
+let rock = 100;
+let stone = 0;
+let stoneperclick = 1;
+let grass = 10000;
+let plants = 0;
+let plantsperclick = 1;
+let rope = 0;
+let ropeperclick = 1;
+let food = 0;
+let foodperclick = 1;
+let energy = 100;
+let wildfood= 1000;
+let fireresearch = false;
+let axecraft = false;
+let hammercraft = false;
+let toolsresearch = false;
+let roperesearch = false;
+let hammerresearch = false;
 
 function Update(){
-  document.getElementById("woodamount").textContent="You have "+wood+" wood.";
+  document.getElementById("woodamount").textContent="You have "+wood+" piece(s) of wood.";
   document.getElementById("treeamount").textContent="Number of trees: "+tree;
   document.getElementById("woodperclick").textContent="Wood per click: "+woodperclick;
   document.getElementById("rockamount").textContent="Number of rocks: "+rock;
-  document.getElementById("stoneamount").textContent="You have "+stone+" stone."
+  document.getElementById("stoneamount").textContent="You have "+stone+" stone(s).";
   document.getElementById("stoneperclick").textContent="Stone per click: "+stoneperclick;
   document.getElementById("grassamount").textContent="Clumps of grass: "+grass;
   document.getElementById("plantamount").textContent= "You have "+plants+" plant(s).";
-  document.getElementById("plantsperclick").textContent="Plants per click: "+plantsperclick;
-  document.getElementById("ropeamount").textContent= "You have "+rope+" rope.";
+  document.getElementById("plantsperclick").textContent="Plant(s) per click: "+plantsperclick;
+  document.getElementById("ropeamount").textContent= "You have "+rope+" rope(s).";
   document.getElementById("ropeperclick").textContent="Rope per click: "+ropeperclick;
   document.getElementById("foodamount").textContent="Food: "+food;
   document.getElementById("foodperclick").textContent="Food per click: "+foodperclick;
-  document.getElementById("energy").textContent="Energy: "+energy+"/100"
-  document.getElementById("wildfood").textContent="Food in the wild: "+wildfood
+  document.getElementById("energy").textContent="Energy: "+energy+"/100";
+  document.getElementById("wildfood").textContent="Food in the wild: "+wildfood;
 }
 
 function getResource(resource, source, perclick, name){
-  if (source>=perclick){
+  if(source>=perclick){
     resource+=perclick;
     source-=perclick;
     return [resource, source];
@@ -73,12 +63,12 @@ document.getElementById("getstone").onclick=function(){
 }
 
 document.getElementById("getplant").onclick=function(){
-  [plants, grass] = getResource(plants, grass, plantsperclick, "grasses");
+  [plants, grass] = getResource(plants, grass, plantsperclick, "clumps of grass");
   Update();
 }
 
 document.getElementById("forage").onclick=function(){
-  [food, wildfood]= getResource(food, wildfood, foodperclick, "food in the wild");
+  [food, wildfood]= getResource(food, wildfood, foodperclick, "wild foods");
   Update();
 }
 
@@ -89,26 +79,27 @@ document.getElementById("makerope").onclick=function(){
 
 function Create(Rwood, Rstone, Rplants, Rrope, Renergy, time, researching, name, id, func, action){
   
-  let response = "y"
+  let response = "y";
 
   if(wood>=Rwood && stone>=Rstone && plants>=Rplants && rope>=Rrope && energy>Renergy && researching==false){
     if(energy<Renergy+10){
-    response=window.prompt("Are you sure? Your energy will be reduced to less than 10 if you perform this action! (y/n)")
+      response=window.prompt("Are you sure? Your energy will be reduced to less than 10 if you perform this action! (y/n)");
     }
     if(response=="y"){
-      wood-=Rwood
-      stone-=Rstone
-      plants-=Rplants
-      energy-=Renergy
+      wood-=Rwood;
+      stone-=Rstone;
+      plants-=Rplants;
+      rope-=Rrope;
+      energy-=Renergy;
       Update();
-      window.alert(`You have began ${action} ${name}!`);
-      document.getElementById(id).textContent=`${action.charAt(0).toUpperCase()+action.slice(1)}...`
+      window.alert(`You have begun ${action} ${name}!`);
+      document.getElementById(id).textContent=`${action.charAt(0).toUpperCase()+action.slice(1)}...`;
       window.setTimeout(func, time);
       return true;
-      } 
-      else{
-        return false;
-      }
+    } 
+    else{
+      return false;
+    }
   }
   else if(researching==true){
     window.alert(`You are already ${action} ${name}!`);
@@ -124,36 +115,28 @@ function Create(Rwood, Rstone, Rplants, Rrope, Renergy, time, researching, name,
   }
 }
 
-document.getElementById("fire").onclick=function(){
-  fireresearch=Create(50, 10, 25, 0, 25, 5000, fireresearch, "fire", "fire", ResearchFire, "researching");
-}
-
-function ResearchFire(){
-     window.alert("You have researched fire! Campfire building unlocked!");
-     document.getElementById("firediv").style.display="none"
-     Buildings.style.display="block";
-}
-
-document.getElementById("axe").onclick=function(){
-  axecraft=Create(5, 5, 0, 10, 15, 3000, axecraft, "an axe", "axe", CraftAxe, "crafting");
+document.getElementById("craftaxe").onclick=function(){
+  axecraft=Create(5, 5, 0, 10, 15, 3000, axecraft, "an axe", "craftaxe", CraftAxe, "crafting");
 }
 
 function CraftAxe(){
- window.alert("You have crafted an axe! Wood per click increased by 4.")
- document.getElementById("axe").style.display="none"
- woodperclick+=4
- Update();
+  window.alert("You have crafted an axe! Wood per click increased by 4!");
+  document.getElementById("toolsspace").style.display="none";
+  document.getElementById("axe").style.display="none";
+  woodperclick+=4;
+  Update();
 }
 
 document.getElementById("crafthammer").onclick=function(){
-  hammercraft=Create(5, 5, 0, 10, 15, 3000, hammercraft, "a hammer", "crafthammer", CraftHammer, "crafting");
+  hammercraft=Create(5, 15, 0, 5, 20, 4000, hammercraft, "a hammer", "crafthammer", CraftHammer, "crafting");
 }
 
 function CraftHammer(){
- window.alert("You have crafted a hammer! Stone per click increased by 4.")
- document.getElementById("hammer").style.display="none"
- stoneperclick+=4
- Update();
+  window.alert("You have crafted a hammer! Stone per click increased by 4!");
+  document.getElementById("toolsspace").style.display="none";
+  document.getElementById("hammer").style.display="none";
+  stoneperclick+=4;
+  Update();
 }
 
 document.getElementById("ropemaking").onclick=function(){
@@ -162,9 +145,9 @@ document.getElementById("ropemaking").onclick=function(){
 
 function ResearchRope(){
   window.alert("You have researched rope making! Rope unlocked! You are able to research toolmaking!");
-  document.getElementById("ropediv").style.display="none"
-  document.getElementById("rope").style.display="block"
-  document.getElementById("toolsdiv").style.display="block"
+  document.getElementById("ropediv").style.display="none";
+  document.getElementById("rope").style.display="block";
+  document.getElementById("toolsdiv").style.display="block";
 }
 
 document.getElementById("toolmaking").onclick=function(){
@@ -172,54 +155,71 @@ document.getElementById("toolmaking").onclick=function(){
 }
 
 function ResearchTools(){
-  window.alert("You have researched toolmaking! Tools section unlocked! You are able to research hammer making!");
-  document.getElementById("toolsdiv").style.display="none"
-  document.getElementById("tools").style.display="block"
-  document.getElementById("hammerdiv").style.display="block"
+  window.alert("You have researched toolmaking! Axe unlocked! You are able to research hammer making!");
+  document.getElementById("toolsdiv").style.display="none";
+  document.getElementById("tools").style.display="block";
+  document.getElementById("hammerdiv").style.display="block";
+  document.getElementById("axe").style.display="block";
 }
 
 document.getElementById("hammermaking").onclick=function(){
-  hammerresearch=Create(5, 15, 0, 5, 20, 4000, hammerresearch, "hammer making", "hammermaking", ResearchHammer, "researching");
+  hammerresearch=Create(10, 25, 0, 5, 20, 4000, hammerresearch, "hammer making", "hammermaking", ResearchHammer, "researching");
 }
 
 function ResearchHammer(){
-  window.alert("You have researched hammer making!");
-  document.getElementById("hammerdiv").style.display="none"
-  document.getElementById("hammer").style.display="block"
+  window.alert("You have researched hammer making! Hammer unlocked!");
+  document.getElementById("techspace").style.display="none";
+  if(document.getElementById("axe").style.display=="block"){
+    document.getElementById("toolsspace").style.display="block";
+  }
+  document.getElementById("hammerdiv").style.display="none";
+  document.getElementById("hammer").style.display="block";
+}
+
+document.getElementById("fire").onclick=function(){
+  fireresearch=Create(50, 10, 25, 0, 25, 5000, fireresearch, "fire", "fire", ResearchFire, "researching");
+}
+
+function ResearchFire(){
+  window.alert("You have researched fire! Campfire unlocked!");
+  document.getElementById("techspace").style.display="none";
+  document.getElementById("firediv").style.display="none";
+  document.getElementById("buildings").style.display="block";
 }
 
 function Tick(){
-  window.setTimeout(Tick, 1000)
-  energy--
-  wildfood++
+  window.setTimeout(Tick, 1000);
+  energy--;
+  wildfood++;
   Update();
 
   if(energy==0){
-    window.location.replace("Defeat.html")
+    window.location.replace("Defeat.html");
   }
   else if(energy==50){
-    window.alert("Your are getting tired. You should probably eat some food.")
+    window.alert("Your are getting tired. You should probably eat some food.");
   }
-  if(energy==10){
-    window.alert("You are very tired! You need to eat some food soon, or you will lose!")
+  else if(energy==10){
+    window.alert("You are very tired! You need to eat some food soon, or you will lose!");
   }
 }
-window.setTimeout(Tick, 1000)
+
+window.setTimeout(Tick, 1000);
 
 document.getElementById("eat").onclick=function(){
-  if(food>0&&energy<100){
-    food-=1;
-    energy+=1;
+  if(food>0 && energy<100){
+    food--;
+    energy++;
     Update();
   }
   else if(food==0){
-    window.alert("You do not have food!")
+    window.alert("You do not have food!");
   }
   else{
-    window.alert("You are already full!")
+    window.alert("You are already full!");
   }
 }
 
 document.getElementById("campfire").onclick=function(){
-  window.alert("Coming soon...")
+  window.alert("Coming soon... This feature is not available in the Pre-Alpha Edition! Stayed tuned for future updates!");
 }
