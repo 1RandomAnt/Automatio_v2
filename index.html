@@ -11,9 +11,9 @@
 
     <h2>Inventory</h2>
     
-    <p id="energy">Energy: 100/100</p>    
+    <p id="energy">Energy: 100/100</p>
     
-    <p id="storage">You are using 0/100 of your space.</p>
+    <p id="storage">You are using 0/200 of your space.</p>
     <p id="berries">Berries: 0</p>
     <button id="eat">Eat Food</button>
 
@@ -46,6 +46,8 @@
     <p id="treeamount" title="Increases by 1 every second unless it has either reached the carrying capacity or there is none left.">Number of trees: 0/0</p>  
     <p id="woodperclick">Wood per click: 1</p>
     <button id="getwood">Get Wood</button>
+    
+  <p id="branchesamount" style="display:none">Number of branch(es):0</p>
 
     <p id="rockamount">Number of rocks: 0</p>  
     <p id="stoneperclick">Stone per click: 1</p>
@@ -59,8 +61,16 @@
     <br>
     <button id="exploreforest" title="Uncovers 10% of the forest.">Explore Forest: Requires 25 energy, takes 5 seconds.</button>
     <p id="forestexplored">0% explored</p>
-
+    <div style="display:none">
+    <button id="scout">Scout the area.</button>
+    <br><br>
+    </div>
+    
     <button id="research" title="Unlocks technology section">Develop Research: Requires 10 energy, takes 2 seconds.</button>
+    
+        <div id="caves" style="display:none">
+      <h3>Caves</h3>
+    </div>
 
     <div id="tools" style="display:none">
         <h2>Tools</h2>
@@ -75,7 +85,17 @@
 
     <div id="buildings" style="display:none">
         <h2>Buildings</h2>
-        <button id="campfire">Build campfire: Enables you to cook food.</button>
+        <div> 
+        <button id="buildhouse" title="Increase max storage by 100.">Build house: Requires 50 wood, 10 stone, 10 plants, and 50 energy. Takes 10 seconds. </button>
+        </div>
+        
+        <div id="house" style="display:none">
+        <h4>House</h4>
+        <p id=houselevel>Level 1/100</p>
+        <button id="upgradehouse" title="Increase max storage by 100.">Upgrade House: Requires 25 wood, 5 stone, 10 plants and 30 energy. Takes 6 seconds. </button>
+        </div>
+        <br>
+        <button id="campfire" style="display:none">Build campfire: Enables you to cook food.</button>
     </div>
 
     
@@ -102,7 +122,13 @@
         <br><br>
         </div>
         
-        <div id="firediv">
+        
+         <div id="buildingsdiv">
+        <button id="resbuildings" title="Unlocks buildings section.">Research buildings: Requires 25 wood, 10 stone, 10 plants, and 25 energy; takes 5 seconds.</button>
+        </div>
+        
+        
+        <div id="firediv" style="display:none">
         <button id="fire" title="Unlocks campfire.">Research fire: Requires 50 wood, 10 stone, 25 plants, and 25 energy; takes 5 seconds.</button>
         </div>
     </div>
