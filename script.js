@@ -16,6 +16,7 @@ let berriesperclick = 1;
 let energy = 100;
 let wildberries= 100;
 let maxwildberries = 100;
+let branches = 100;
 let fireresearch = false;
 let axecraft = false;
 let hammercraft = false;
@@ -28,6 +29,11 @@ let exploreforest = false;
 let stuff = 0
 let maxstuff = 200;
 let developresearch = false;
+let researchbuildings = false;
+let buildhouse = false;
+//let berrieseaten = 0;
+let houselevel = 1;
+let upgradehouse = false;
 
 /*
 //devmode
@@ -35,7 +41,7 @@ wood=1000;
 stone=1000;
 plants= 1000;
 rope = 1000;
-energy = 10000;
+energy = 1000;
 */
 
 function Update(){
@@ -56,13 +62,16 @@ function Update(){
   document.getElementById("wildberries").textContent=`Wild berries: ${wildberries}/${maxwildberries}`;
   document.getElementById("forestexplored").textContent=forestexplored+"% explored";
   document.getElementById("storage").textContent=`You are using ${stuff}/${maxstuff} of your space.`;
+document.getElementById("houselevel").textContent=`Level ${houselevel}/100`
 }
 
 function getResource(resource, source, perclick, name, space, maxspace, spacename){
   if (source>=perclick&&(maxspace-space)>=perclick){
     resource+=perclick;
     source-=perclick;
+    if(name!="plants"){
     space+=perclick;
+    }
     return [resource, source, space];
   }else if(source<perclick){
     window.alert(`There is not enough ${name} left!`);
@@ -110,7 +119,9 @@ function Create(Rwood, Rstone, Rplants, Rrope, Renergy, time, researching, name,
       wood-=Rwood;
       stone-=Rstone;
       plants-=Rplants;
+      rope-=Rrope
       energy-=Renergy;
+      stuff-=(Rwood+Rstone+Rplants+Rrope);
       Update();
       window.alert(`You have begun ${action} ${name}!`);
       document.getElementById(id).textContent=`${action.charAt(0).toUpperCase()+action.slice(1)}...`;
@@ -135,6 +146,17 @@ function Create(Rwood, Rstone, Rplants, Rrope, Renergy, time, researching, name,
   }
 }
 
+document.getElementById("resbuildings").onclick=function(){
+  researchbuildings=Create(25, 10, 10, 0, 25, 5000, researchbuildings, "buildings", "resbuildings", ResearchBuildings, "researching");
+}
+
+function ResearchBuildings(){
+  window.alert("You have researched buildings! Buildings section unlocked!");
+  document.getElementById("firediv").style.display="block";
+  document.getElementById("resbuildings").style.display="none";
+  document.getElementById("buildings").style.display="block";
+}
+
 document.getElementById("fire").onclick=function(){
   fireresearch=Create(50, 10, 25, 0, 25, 5000, fireresearch, "fire", "fire", ResearchFire, "researching");
 }
@@ -142,7 +164,7 @@ document.getElementById("fire").onclick=function(){
 function ResearchFire(){
   window.alert("You have researched fire! Campfire building unlocked!");
   document.getElementById("firediv").style.display="none";
-  document.getElementById("buildings").style.display="block";
+  document.getElementById("campfire").style.display="block";
 }
 
 document.getElementById("craftaxe").onclick=function(){
@@ -158,7 +180,7 @@ function CraftAxe(){
 }
 
 document.getElementById("crafthammer").onclick=function(){
-  hammercraft=Create(5, 5, 0, 10, 15, 3000, hammercraft, "a hammer", "crafthammer", CraftHammer, "crafting");
+  hammercraft=Create(5, 15, 0, 5, 20, 4000, hammercraft, "a hammer", "crafthammer", CraftHammer, "crafting");
 }
 
 function CraftHammer(){
@@ -193,7 +215,7 @@ function ResearchTools(){
 }
 
 document.getElementById("hammermaking").onclick=function(){
-  hammerresearch=Create(5, 15, 0, 5, 20, 4000, hammerresearch, "hammer making", "hammermaking", ResearchHammer, "researching");
+  hammerresearch=Create(10, 25, 0, 5, 20, 4000, hammerresearch, "hammer making", "hammermaking", ResearchHammer, "researching");
 }
 
 function ResearchHammer(){
@@ -204,7 +226,6 @@ function ResearchHammer(){
     document.getElementById("toolsspace").style.display="block";
   }
 }
-
 
 document.getElementById("axemaking").onclick=function(){
   axeresearch=Create(10, 15, 0, 10, 20, 4000, axeresearch, "axe making", "axemaking", ResearchAxe, "researching");
@@ -220,18 +241,25 @@ function ResearchAxe(){
 }
 
 function Tick(){
+  
   window.setTimeout(Tick, 1000);
   energy--;
+  
   if(wildberries<maxwildberries){
-    wildberries+=maxwildberries/100;
+    if(wildberries+maxwildberries/100<maxwildberries){
+      wildberries+=(maxwildberries/100);
+    }
+    else{
+      wildberries=maxwildberries;
+    }
   }
+  
   if(0<tree && tree<maxtree){
     tree++;
   }
   if(0<grass && grass<maxgrass){
     grass++;
   }
-
   Update();
 
   if(energy==0){
@@ -248,14 +276,24 @@ function Tick(){
 document.getElementById("eat").onclick=function(){
   
   /*
-  [energy, berries, energy] = getResource(berries, energy, 1, "berries", energy, 100, "energy");
+  if(energy<98){
+  [energy, berries, berrieseaten] = getResource(energy, berries, 1, "berries", berrieseaten, 99999999999999999, "energy");
   Update();
+  }
+  else{
+    window.alert("You are already full!");
+  }
   */
 
   if(berries>0&&energy<100){
     berries--;
     stuff--;
-    energy++;
+    if(energy==99){
+      energy=100;
+    }
+  else{
+    energy+=2;
+    }
     Update();
   }
   else if(berries==0){
@@ -301,7 +339,6 @@ function ExploreForest(){
 
 window.setTimeout(Tick, 1000);
 
-
 document.getElementById("research").onclick=function(){
   developresearch=Create(0, 0, 0, 0, 10, 2000, developresearch, "research", "research", DevelopResearch, "developing");
 }
@@ -310,4 +347,36 @@ function DevelopResearch(){
   window.alert("You have developed research! Technology section unlocked!");
   document.getElementById("technology").style.display="block";
   document.getElementById("research").style.display="none";
+}
+
+document.getElementById("buildhouse").onclick=function(){
+  buildhouse=Create(50, 10, 10, 0, 50, 10000, buildhouse, "a house", "buildhouse", BuildHouse, "building");
+}
+
+function BuildHouse(){
+  window.alert("You have built a house! Max storage increased by 100!");
+  document.getElementById("buildhouse").style.display="none";
+  document.getElementById("house").style.display="block";
+  maxstuff+=100;
+  Update();
+}
+  
+  document.getElementById("upgradehouse").onclick=function(){
+
+  if(houselevel<100){
+    upgradehouse=Create(25, 5, 10, 0, 30, 6000, upgradehouse, "your house", "upgradehouse", UpgradeHouse, "upgrading");
+  }
+  else{
+    window.alert("The house is fully upgraded!");
+  }
+  }
+
+function UpgradeHouse(){
+  houselevel++;
+  window.alert(`You have upgraded your house to level ${houselevel}! Max storage increased by 100!`);
+
+  document.getElementById("upgradehouse").textContent="Upgrade House: Requires 25 wood, 5 stone, 10 plants and 30 energy. Takes 6 seconds.";
+  upgradehouse=false;
+maxstuff+=100;
+  Update();
 }
