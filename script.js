@@ -26,14 +26,25 @@ let axeresearch = false;
 let hammerresearch = false;
 let forestexplored = 0;
 let exploreforest = false;
-let stuff = 0
+let stuff = 0;
 let maxstuff = 200;
 let developresearch = false;
 let researchbuildings = false;
 let buildhouse = false;
 //let berrieseaten = 0;
+let clicks = 0;
 let houselevel = 1;
 let upgradehouse = false;
+
+let forestunlocked = false;
+let techunlocked = false;
+
+let spearcraft = false;
+let spearresearch = false;
+
+let hunting = false;
+let huntamount = 0;
+let meat = 0;
 
 /*
 //devmode
@@ -42,31 +53,58 @@ stone=1000;
 plants= 1000;
 rope = 1000;
 energy = 1000;
+clicks = 100;
+maxstuff = 10000;
 */
 
+woodamt = document.getElementById("woodamt");
+treeamt = document.getElementById("treeamt");
+woodperclickamt = document.getElementById("woodperclickamt");
+rockamt = document.getElementById("rockamt");
+stoneamt = document.getElementById("stoneamt");
+stoneperclickamt = document.getElementById("stoneperclickamt");
+grassamt = document.getElementById("grassamt");
+plantamt = document.getElementById("plantamt");
+plantsperclickamt = document.getElementById("plantsperclickamt")
+ropeamt = document.getElementById("ropeamt");
+ropeperclickamt = document.getElementById("ropeperclickamt");
+berriesamt = document.getElementById("berriesamt");
+berriesperclickamt = document.getElementById("berriesperclickamt");
+energyamt = document.getElementById("energyamt");
+wildberriesamt = document.getElementById("wildberriesamt");
+meatamt = document.getElementById("meatamt");
+
+forestexploredamt = document.getElementById("forestexploredamt");
+storageamt = document.getElementById("storageamt");
+houselevelamt = document.getElementById("houselevelamt");
+
+forestdiv = document.getElementById("forestdiv");
+
 function Update(){
-  document.getElementById("woodamount").textContent="You have "+wood+" pieces of wood.";
-  document.getElementById("treeamount").textContent=`Number of trees: ${tree}/${maxtree}`;
-  document.getElementById("woodperclick").textContent="Wood per click: "+woodperclick;
-  document.getElementById("rockamount").textContent="Number of rocks: "+rock;
-  document.getElementById("stoneamount").textContent="You have "+stone+" stone(s).";
-  document.getElementById("stoneperclick").textContent="Stone per click: "+stoneperclick;
-  document.getElementById("grassamount").textContent=`Clumps of grass: ${grass}/${maxgrass}`;
-  document.getElementById("plantamount").textContent= "You have "+plants+" plant(s).";
-  document.getElementById("plantsperclick").textContent="Plant(s) per click: "+plantsperclick;
-  document.getElementById("ropeamount").textContent= "You have "+rope+" rope.";
-  document.getElementById("ropeperclick").textContent="Rope per click: "+ropeperclick;
-  document.getElementById("berries").textContent="Berries: "+berries;
-  document.getElementById("berriesperclick").textContent="Berries per click: "+berriesperclick;
-  document.getElementById("energy").textContent="Energy: "+energy+"/100";
-  document.getElementById("wildberries").textContent=`Wild berries: ${wildberries}/${maxwildberries}`;
-  document.getElementById("forestexplored").textContent=forestexplored+"% explored";
-  document.getElementById("storage").textContent=`You are using ${stuff}/${maxstuff} of your space.`;
-document.getElementById("houselevel").textContent=`Level ${houselevel}/100`
+  woodamt.textContent="You have "+wood+" pieces of wood.";
+  treeamt.textContent=`Number of trees: ${tree}/${maxtree}`;
+  woodperclickamt.textContent="Wood per click: "+woodperclick;
+  rockamt.textContent="Number of rocks: "+rock;
+  stoneamt.textContent="You have "+stone+" stone(s).";
+  stoneperclickamt.textContent="Stone per click: "+stoneperclick;
+  grassamt.textContent=`Clumps of grass: ${grass}/${maxgrass}`;
+  plantamt.textContent= "You have "+plants+" plant(s).";
+  plantsperclickamt.textContent="Plant(s) per click: "+plantsperclick;
+  ropeamt.textContent= "You have "+rope+" rope.";
+  ropeperclickamt.textContent="Rope per click: "+ropeperclick;
+  berriesamt.textContent="Berries: "+berries;
+  berriesperclickamt.textContent="Berries per click: "+berriesperclick;
+  energyamt.textContent="Energy: "+energy+"/100";
+  wildberriesamt.textContent=`Wild berries: ${wildberries}/${maxwildberries}`;
+  meatamt.textContent=`Meat: ${meat}`;
+  forestexploredamt.textContent=forestexplored+"% explored";
+  storageamt.textContent=`You are using ${stuff}/${maxstuff} of your space.`;
+  houselevelamt.textContent=`Level ${houselevel}/100`;
 }
 
 function getResource(resource, source, perclick, name, space, maxspace, spacename){
   if (source>=perclick&&(maxspace-space)>=perclick){
+    clicks++;
     resource+=perclick;
     source-=perclick;
     if(name!="plants"){
@@ -100,6 +138,38 @@ document.getElementById("forage").onclick=function(){
   [berries, wildberries, stuff]= getResource(berries, wildberries, berriesperclick, "wild berries", stuff, maxstuff, "material");
   Update();
 }
+
+
+document.getElementById("hunt").onclick=function(){
+  hunting=Create(0, 0, 0, 0, 10, 5000, hunting, "in the forest", "hunt", Hunt, "hunting");
+  }
+
+function Hunt(){
+  
+  if((Math.floor(Math.random()*4)+1)==1){
+    
+    huntamount = Math.floor(Math.random()*10)+1;
+    window.alert(`The hunt was sucessful! You have gained ${huntamount} meat!`);
+
+    if(huntamount>(maxstuff-stuff)){
+      window.alert(`You only have enough space for ${maxstuff-stuff} meat!`);
+      meat+=maxstuff-stuff;
+      stuff=maxstuff;
+    }
+    else{
+      meat+=huntamount;
+      stuff+=huntamount;
+    }
+    Update();
+  }
+  else{
+    window.alert(`The hunt was unsucessful! Better luck next time!`);
+  }
+  
+  document.getElementById("hunt").textContent="Hunt: Requires 10 energy, takes 5 seconds.";
+  hunting=false;
+}
+
 
 document.getElementById("makerope").onclick=function(){
   [rope, plants, stuff] = getResource(rope, plants, ropeperclick, "plants", stuff, maxstuff, "material");
@@ -191,6 +261,19 @@ function CraftHammer(){
   Update();
 }
 
+document.getElementById("craftspear").onclick=function(){
+  spearcraft=Create(10, 5, 0, 5, 20, 4000, spearcraft, "a spear", "craftspear", CraftSpear, "crafting");
+}
+
+function CraftSpear(){
+  window.alert("You have crafted a spear! Hunting unlocked!");
+  document.getElementById("spear").style.display="none";
+  document.getElementById("hunt").style.display="block";
+  document.getElementById("meatamt").style.display="block";
+  document.getElementById("eatmeat").style.display="block";
+}
+
+
 document.getElementById("ropemaking").onclick=function(){
   roperesearch=Create(5, 5, 20, 0, 10, 2000, roperesearch, "rope making", "ropemaking", ResearchRope, "researching");
 }
@@ -207,11 +290,12 @@ document.getElementById("toolmaking").onclick=function(){
 }
 
 function ResearchTools(){
-  window.alert("You have researched toolmaking! Tools section unlocked! You are able to research hammer making and axe making!");
+  window.alert("You have researched toolmaking! Tools section unlocked! You are able to research hammer making, axe making, and spear making!");
   document.getElementById("toolsdiv").style.display="none";
   document.getElementById("tools").style.display="block";
   document.getElementById("hammerdiv").style.display="block";
   document.getElementById("axediv").style.display="block";
+  document.getElementById("speardiv").style.display="block";
 }
 
 document.getElementById("hammermaking").onclick=function(){
@@ -240,10 +324,31 @@ function ResearchAxe(){
   }
 }
 
+
+document.getElementById("spearmaking").onclick=function(){
+  spearresearch=Create(25, 5, 0, 5, 15, 3000, spearresearch, "spear making", "spearmaking", ResearchSpear, "researching");
+}
+
+function ResearchSpear(){
+  window.alert("You have researched spear making! Spear unlocked!");
+  document.getElementById("speardiv").style.display="none";
+  document.getElementById("spear").style.display="block";
+}
+
 function Tick(){
   
   window.setTimeout(Tick, 1000);
   energy--;
+
+  if(clicks>=25&&forestunlocked==false){
+    forestdiv.style.display="block";
+    forestunlocked = true;
+  }
+
+  if(clicks>=100 && techunlocked==false){
+    research.style.display="block";
+    techunlocked = true;
+  }
   
   if(wildberries<maxwildberries){
     if(wildberries+maxwildberries/100<maxwildberries){
@@ -273,8 +378,7 @@ function Tick(){
   }
 }
 
-document.getElementById("eat").onclick=function(){
-  
+document.getElementById("eatberries").onclick=function(){
   /*
   if(energy<98){
   [energy, berries, berrieseaten] = getResource(energy, berries, 1, "berries", berrieseaten, 99999999999999999, "energy");
@@ -284,20 +388,41 @@ document.getElementById("eat").onclick=function(){
     window.alert("You are already full!");
   }
   */
-
   if(berries>0&&energy<100){
     berries--;
     stuff--;
     if(energy==99){
       energy=100;
     }
-  else{
-    energy+=2;
+    else{
+      energy+=2;
     }
     Update();
   }
   else if(berries==0){
     window.alert("You do not have any more berries left!");
+  }
+  else{
+    window.alert("You are already full!");
+  }
+  
+}
+
+document.getElementById("eatmeat").onclick=function(){
+
+  if(meat>0&&energy<100){
+    meat--;
+    stuff--;
+    if(energy>80){
+      energy=100;
+    }
+    else{
+      energy+=20;
+    }
+    Update();
+  }
+  else if(meat==0){
+    window.alert("You do not have any more meat left!");
   }
   else{
     window.alert("You are already full!");
@@ -338,7 +463,6 @@ function ExploreForest(){
 }
 
 window.setTimeout(Tick, 1000);
-
 document.getElementById("research").onclick=function(){
   developresearch=Create(0, 0, 0, 0, 10, 2000, developresearch, "research", "research", DevelopResearch, "developing");
 }
@@ -361,7 +485,7 @@ function BuildHouse(){
   Update();
 }
   
-  document.getElementById("upgradehouse").onclick=function(){
+document.getElementById("upgradehouse").onclick=function(){
 
   if(houselevel<100){
     upgradehouse=Create(25, 5, 10, 0, 30, 6000, upgradehouse, "your house", "upgradehouse", UpgradeHouse, "upgrading");
@@ -369,7 +493,7 @@ function BuildHouse(){
   else{
     window.alert("The house is fully upgraded!");
   }
-  }
+}
 
 function UpgradeHouse(){
   houselevel++;
@@ -377,6 +501,6 @@ function UpgradeHouse(){
 
   document.getElementById("upgradehouse").textContent="Upgrade House: Requires 25 wood, 5 stone, 10 plants and 30 energy. Takes 6 seconds.";
   upgradehouse=false;
-maxstuff+=100;
+  maxstuff+=100;
   Update();
 }
