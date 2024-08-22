@@ -11,126 +11,140 @@
 
     <h2>Inventory</h2>
     
-    <p id="energy">Energy: 100/100</p>
+    <p id="energyamt">Energy: 100/100</p>
     
-    <p id="storage">You are using 0/200 of your space.</p>
-    <p id="berries">Berries: 0</p>
-    <button id="eat">Eat Food</button>
+    <p id="storageamt">You are using 0/200 of your space.</p>
+    <p id="berriesamt">Berries: 0</p>
+    <button id="eatberries" title="Replenishes 2 energy.">Eat Berries</button>
+
+    <p id="meatamt" style="display:none">Meat: 0</p>
+    <button id="eatmeat" title="Replenishes 20 energy." style="display:none">Eat Meat</button>
 
     <div id="forestresources" style="display:none">
-    <p id="woodamount">You have 0 pieces of wood.</p>
-    <p id="stoneamount">You have 0 stone(s).</p>
-    <p id="plantamount">You have 0 plant(s).</p>
+    <p id="woodamt">You have 0 pieces of wood.</p>
+    <p id="stoneamt">You have 0 stone(s).</p>
+    <p id="plantamt">You have 0 plant(s).</p>
     </div>
 
     <div id="rope" style="display:none">
-      <p id="ropeperclick">Rope per click: 1</p>
-    <button id="makerope">Make rope</button>
-    <p id="ropeamount">You have 0 rope.</p>
+      <p id="ropeperclickamt">Rope per click: 1</p>
+    <button id="makerope" title="Turns plants into rope.">Make rope</button>
+    <p id="ropeamt">You have 0 rope.</p>
     </div>
  
     <h2>Environment</h2> 
     
     <div style="display:none">
         <h3>Field</h3>
-        <p id="fieldamount">Number of branches: 25</p>  
+        <p id="fieldamt">Number of branches: 25</p>  
     </div>
     
     <h3>Forest</h3>
-    <p id="wildberries">Wild berries: 100/100</p>
-    <p id="berriesperclick">Berries per click: 1</p>
-    <button id="forage">Forage</button>
-    <br>
+    <p id="wildberriesamt">Wild berries: 100/100</p>
+    <p id="berriesperclickamt">Berries per click: 1</p>
+    <button id="forage" title="Increases berries, decreases wild berries.">Forage</button>
+    <br><br>
+    <button id="hunt" title="25% chance of having a sucessful hunt. Every sucessful hunt nets you between 1-10 meat." style="display:none">Hunt: Requires 10 energy, takes 5 seconds.</button>
     
+
     <div id="forest" style="display:none">
-    <p id="treeamount" title="Increases by 1 every second unless it has either reached the carrying capacity or there is none left.">Number of trees: 0/0</p>  
-    <p id="woodperclick">Wood per click: 1</p>
-    <button id="getwood">Get Wood</button>
+    <p id="treeamt" title="Increases by 1 every second unless it has either reached the carrying capacity or there is none left.">Number of trees: 0/0</p>  
+    <p id="woodperclickamt">Wood per click: 1</p>
+    <button id="getwood" title="Increases wood, decreases trees.">Get Wood</button>
     
-  <p id="branchesamount" style="display:none">Number of branch(es):0</p>
+    <p id="branchesamt" style="display:none">Number of branch(es):0</p>
 
-    <p id="rockamount">Number of rocks: 0</p>  
-    <p id="stoneperclick">Stone per click: 1</p>
-    <button id="getstone">Pick up rock</button>
+    <p id="rockamt">Number of rocks: 0</p>  
+    <p id="stoneperclickamt">Stone per click: 1</p>
+    <button id="getstone" title="Increases stone, decreases rocks.">Pick up rock</button>
 
-    <p id="grassamount" title="Increases by 1 every second unless it has either reached the carrying capacity or there is none left.">Clumps of grass: 0/0</p>
-    <p id="plantsperclick">Plant(s) per click: 1</p>
-    <button id="getplant">Gather grass</button>
+    <p id="grassamt" title="Increases by 1 every second unless it has either reached the carrying capacity or there is none left.">Clumps of grass: 0/0</p>
+    <p id="plantsperclickamt">Plant(s) per click: 1</p>
+    <button id="getplant" title="Increases plants, decreases grass.">Gather grass</button>
     </div>
 
     <br>
+    <div id="forestdiv" style="display:none">
     <button id="exploreforest" title="Uncovers 10% of the forest.">Explore Forest: Requires 25 energy, takes 5 seconds.</button>
-    <p id="forestexplored">0% explored</p>
+    <p id="forestexploredamt">0% explored</p>
+    </div>
+
     <div style="display:none">
     <button id="scout">Scout the area.</button>
     <br><br>
     </div>
     
-    <button id="research" title="Unlocks technology section">Develop Research: Requires 10 energy, takes 2 seconds.</button>
+    <button id="research" title="Unlocks technology section" style="display:none">Develop Research: Requires 10 energy, takes 2 seconds.</button>
     
-        <div id="caves" style="display:none">
+    <div id="caves" style="display:none">
       <h3>Caves</h3>
     </div>
 
     <div id="tools" style="display:none">
         <h2>Tools</h2>
         <div id="axe" style="display:none">
-          <button id="craftaxe">Craft Axe: Requires 5 wood, 5 stone, 10 rope, and 15 energy; takes 3 seconds. Increases wood per click by 4.</button>
+          <button id="craftaxe" title="Increases wood per click by 4.">Craft Axe: Requires 5 wood, 5 stone, 10 rope, and 15 energy; takes 3 seconds.</button>
         </div>
         <br id="toolsspace" style="display:none">
         <div id="hammer" style="display:none">
-          <button id="crafthammer">Craft Hammer: Requires 5 wood, 15 stone, 5 rope, and 20 energy; takes 4 seconds. Increases stone per click by 4.</button>
+          <button id="crafthammer" title="Increases stone per click by 4.">Craft Hammer: Requires 5 wood, 15 stone, 5 rope, and 20 energy; takes 4 seconds.</button>
+        </div>
+
+        <div id="spear" style="display:none">
+          <button id="craftspear" title="Unlocks hunting.">Craft Spear: Requires 10 wood, 5 stone, 5 rope, and 20 energy; takes 4 seconds.</button>
         </div>
     </div>
 
     <div id="buildings" style="display:none">
         <h2>Buildings</h2>
         <div> 
-        <button id="buildhouse" title="Increase max storage by 100.">Build house: Requires 50 wood, 10 stone, 10 plants, and 50 energy. Takes 10 seconds. </button>
+          <button id="buildhouse" title="Increase max storage by 100.">Build house: Requires 50 wood, 10 stone, 10 plants, and 50 energy. Takes 10 seconds. </button>
         </div>
         
         <div id="house" style="display:none">
-        <h4>House</h4>
-        <p id=houselevel>Level 1/100</p>
-        <button id="upgradehouse" title="Increase max storage by 100.">Upgrade House: Requires 25 wood, 5 stone, 10 plants and 30 energy. Takes 6 seconds. </button>
+          <h4>House</h4>
+          <p id="houselevelamt">Level 1/100</p>
+          <button id="upgradehouse" title="Increase max storage by 100.">Upgrade House: Requires 25 wood, 5 stone, 10 plants and 30 energy. Takes 6 seconds. </button>
         </div>
         <br>
         <button id="campfire" style="display:none">Build campfire: Enables you to cook food.</button>
     </div>
-
     
     <div id="technology" style="display:none">
-    <h2>Technology</h2>
+      <h2>Technology</h2>
     
-    <div id="ropediv">
-    <button id="ropemaking" title="Unlocks rope, enables you to research toolmaking.">Research ropemaking: Requires 5 wood, 5 stone, 20 plants, and 10 energy; takes 2 seconds.</button>
-    <br><br>
-    </div>
+      <div id="ropediv">
+        <button id="ropemaking" title="Unlocks rope, enables you to research toolmaking.">Research ropemaking: Requires 5 wood, 5 stone, 20 plants, and 10 energy; takes 2 seconds.</button>
+        <br><br>
+      </div>
     
-    <div id="toolsdiv" style="display:none">
-      <button id="toolmaking" title="Unlocks tools section, enables you to research hammer making and axe making.">Research toolmaking: Requires 10 wood, 5 stone, 15 rope, and 25 energy; takes 5 seconds.</button>
-          <br><br>
-        </div>
+      <div id="toolsdiv" style="display:none">
+        <button id="toolmaking" title="Unlocks tools section, enables you to research hammer making and axe making.">Research toolmaking: Requires 10 wood, 5 stone, 15 rope, and 25 energy; takes 5 seconds.</button>
+        <br><br>
+      </div>
         
-        <div id="axediv" style="display:none">
-          <button id="axemaking" title="Unlocks axe.">Research axe making: Requires 10 wood, 15 stone, 10 rope, and 20 energy; takes 4 seconds.</button>
-          <br><br>
-          </div>
+      <div id="axediv" style="display:none">
+        <button id="axemaking" title="Unlocks axe.">Research axe making: Requires 10 wood, 15 stone, 10 rope, and 20 energy; takes 4 seconds.</button>
+        <br><br>
+      </div>
 
-       <div id="hammerdiv" style="display:none">
+      <div id="hammerdiv" style="display:none">
         <button id="hammermaking" title="Unlocks hammer.">Research hammer making: Requires 10 wood, 25 stone, 5 rope, and 20 energy; takes 4 seconds.</button>
         <br><br>
-        </div>
+      </div>
+
+      <div id="speardiv" style="display:none">
+        <button id="spearmaking" title="Unlocks spear.">Research spear making: Requires 25 wood, 5 stone, 5 rope, and 15 energy; takes 3 seconds.</button>
+        <br><br>
+      </div>
         
-        
-         <div id="buildingsdiv">
+      <div id="buildingsdiv">
         <button id="resbuildings" title="Unlocks buildings section.">Research buildings: Requires 25 wood, 10 stone, 10 plants, and 25 energy; takes 5 seconds.</button>
-        </div>
+      </div>
         
-        
-        <div id="firediv" style="display:none">
+      <div id="firediv" style="display:none">
         <button id="fire" title="Unlocks campfire.">Research fire: Requires 50 wood, 10 stone, 25 plants, and 25 energy; takes 5 seconds.</button>
-        </div>
+      </div>
     </div>
         
     <script src="script.js"></script>     
