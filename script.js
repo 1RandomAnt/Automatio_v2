@@ -50,6 +50,13 @@ let buildworkbench = false;
 let workbenchlevel = 1;
 let upgradeworkbench = false;
 
+let knifecraft = false;
+let knifedesign = false;
+
+let touchinggrass = false;
+let hunter = false;
+let builder = false;
+
 /*
 //devmode
 wood=1000;
@@ -105,14 +112,14 @@ function Update(){
   forestexploredamt.textContent=forestexplored+"% explored";
   storageamt.textContent=`You are using ${stuff}/${maxstuff} of your space.`;
   houselevelamt.textContent=`Level ${houselevel}/100`;
-  workbenchlevelamt.textContent=`Level ${workbenchlevel}/3`;
+  workbenchlevelamt.textContent=`Level ${workbenchlevel}/4`;
 
   if(clicks>=25&&forestunlocked==false){
     forestdiv.style.display="block";
     forestunlocked = true;
   }
 
-  if(clicks>=100 && techunlocked==false){
+  if(clicks>=50 && techunlocked==false){
     research.style.display="block";
     techunlocked = true;
   }
@@ -146,6 +153,11 @@ document.getElementById("getstone").onclick=function(){
 }
 
 document.getElementById("getplant").onclick=function(){
+  if(touchinggrass == false){
+    window.alert("Achievement Unlocked: TOUCHING GRASS. Collect a plant.");
+    touchinggrass = true;
+    document.getElementById("touchinggrass").textContent = "Achievement Unlocked: TOUCHING GRASS. Collect a plant.";
+  }
   [plants, grass, stuff] = getResource(plants, grass, plantsperclick, "clumps of grass", stuff, maxstuff, "material");
   Update();
 }
@@ -161,9 +173,15 @@ document.getElementById("hunt").onclick=function(){
   }
 
 function Hunt(){
-  
+
   if((Math.floor(Math.random()*4)+1)==1){
     
+    if(hunter == false){
+      window.alert("Achievement Unlocked: HUNTER. Have a sucessful hunt.");
+      hunter = true;
+      document.getElementById("hunter").textContent = "Achievement Unlocked: HUNTER. Have a sucessful hunt.";
+    }
+
     huntamount = Math.floor(Math.random()*10)+1;
     window.alert(`The hunt was sucessful! You have gained ${huntamount} meat!`);
 
@@ -239,7 +257,7 @@ document.getElementById("reshouse").onclick=function(){
 function ResearchHouse(){
   window.alert("You have researched housing! House unlocked!");
   document.getElementById("reshouse").style.display="none";
-  document.getElementById("buildhouse").style.display="block";
+  document.getElementById("buildhousediv").style.display="block";
 }
 
 document.getElementById("fire").onclick=function(){
@@ -251,7 +269,7 @@ function ResearchFire(){
   document.getElementById("housediv").style.display="block";
   document.getElementById("buildings").style.display="block";
   document.getElementById("firediv").style.display="none";
-  document.getElementById("campfire").style.display="block";
+  document.getElementById("campfirediv").style.display="block";
 }
 
 document.getElementById("craftaxe").onclick=function(){
@@ -290,6 +308,16 @@ function CraftSpear(){
   document.getElementById("eatmeat").style.display="block";
 }
 
+document.getElementById("craftknife").onclick=function(){
+  knifecraft=Create(10, 10, 0, 5, 10, 2000, knifecraft, "a knife", "craftknife", CraftKnife, "crafting");
+}
+
+function CraftKnife(){
+  window.alert("You have crafted a knife! Grass per click increased by 4!");
+  document.getElementById("knife").style.display="none";
+  plantsperclick+=4;
+  Update();
+}
 
 document.getElementById("ropemaking").onclick=function(){
   roperesearch=Create(0, 0, 20, 0, 10, 2000, roperesearch, "rope making", "ropemaking", ResearchRope, "researching");
@@ -311,7 +339,7 @@ function ResearchTools(){
   document.getElementById("toolsdiv").style.display="none";
   document.getElementById("tools").style.display="block";
   document.getElementById("buildings").style.display="block";
-  document.getElementById("buildworkbench").style.display="block";
+  document.getElementById("workbenchdiv").style.display="block";
 }
 
 document.getElementById("designhammer").onclick=function(){
@@ -349,6 +377,16 @@ function DesignSpear(){
   window.alert("You have designed a spear! Spear unlocked!");
   document.getElementById("speardiv").style.display="none";
   document.getElementById("spear").style.display="block";
+}
+
+document.getElementById("designknife").onclick=function(){
+  knifedesign = Create(5, 5, 0, 2, 5, 1000, knifedesign, "a knife", "designknife", DesignKnife, "designing");
+}
+
+function DesignKnife(){
+  window.alert("You have designed a knife! Knife unlocked!");
+  document.getElementById("knifediv").style.display="none";
+  document.getElementById("knife").style.display="block";
 }
 
 function Tick(){
@@ -484,8 +522,15 @@ document.getElementById("buildhouse").onclick=function(){
 }
 
 function BuildHouse(){
+
+  if(builder == false){
+    window.alert("Achievement Unlocked: BUILDER. Build a house.");
+    builder = true;
+    document.getElementById("builder").textContent = "Achievement Unlocked: BUILDER. Build a house..";
+  }
+
   window.alert("You have built a house! Max storage increased by 100!");
-  document.getElementById("buildhouse").style.display="none";
+  document.getElementById("buildhousediv").style.display="none";
   document.getElementById("house").style.display="block";
   maxstuff+=100;
   Update();
@@ -516,15 +561,16 @@ document.getElementById("buildworkbench").onclick=function(){
 }
 
 function BuildWorkbench(){
-  window.alert("You have built a workbench! Spear design unlocked!");
-  document.getElementById("speardiv").style.display="block";
-  document.getElementById("buildworkbench").style.display="none";
+  window.alert("You have built a workbench! Hammer design unlocked!");
+  document.getElementById("hammerdiv").style.display="block";
+  
+  document.getElementById("workbenchdiv").style.display="none";
   document.getElementById("workbench").style.display="block";
 }
   
 document.getElementById("upgradeworkbench").onclick=function(){
 
-  if(workbenchlevel<3){
+  if(workbenchlevel<4){
     upgradeworkbench=Create(10, 5, 0, 0, 20, 4000, upgradeworkbench, "your workbench", "upgradeworkbench", UpgradeWorkbench, "upgrading");
   }
   else{
@@ -535,14 +581,29 @@ document.getElementById("upgradeworkbench").onclick=function(){
 function UpgradeWorkbench(){
   workbenchlevel++;
   if(workbenchlevel==2){
-    window.alert(`You have upgraded your workbench to level 2! Axe design unlocked!`);
-    document.getElementById("axediv").style.display="block";
+    window.alert(`You have upgraded your workbench to level 2! Knife design unlocked!`);
+    document.getElementById("knifediv").style.display="block";
   }
   else if(workbenchlevel==3){
-    window.alert(`You have upgraded your workbench to level 3! Hammer design unlocked!`);
-    document.getElementById("hammerdiv").style.display="block";
+    window.alert(`You have upgraded your workbench to level 3! Axe design unlocked!`);
+    document.getElementById("axediv").style.display="block";
   }
+  else if(workbenchlevel==4){
+    window.alert(`You have upgraded your workbench to level 4! Spear design unlocked!`);
+    document.getElementById("speardiv").style.display="block";
+}
 
-  document.getElementById("upgradeworkbench").textContent="Upgrade Workbench: Requires 10 wood, 5 stone and 20 energy. Takes 4 seconds.";
+document.getElementById("upgradeworkbench").textContent="Upgrade Workbench: Requires 10 wood, 5 stone and 20 energy. Takes 4 seconds.";
   upgradeworkbench=false;
+}
+
+document.getElementById("achievements").onclick=function(){
+  if(document.getElementById("achievements").textContent == "Achievements"){
+    document.getElementById("achievements").textContent = "Hide Achievements";
+    document.getElementById("achievementsdisplay").style.display = "block";
+  }
+  else{
+    document.getElementById("achievements").textContent = "Achievements";
+    document.getElementById("achievementsdisplay").style.display = "none";
+  }
 }
