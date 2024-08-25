@@ -9,6 +9,14 @@
 <body>
     <h1>Automatio</h1>
 
+    <button id="achievements">Achievements</button>
+    
+    <div id="achievementsdisplay" style="display:none">
+      <p id="touchinggrass">Not Gotten Yet: TOUCHING GRASS. Collect a plant.</p>
+      <p id="builder">Not Gotten Yet: BUILDER. Build a house.</p>
+      <p id="hunter">Not Gotten Yet: HUNTER. Have a sucessful hunt.</p>
+    </div>
+
     <h2>Inventory</h2>
     
     <p id="energyamt">Energy: 100/100</p>
@@ -98,44 +106,60 @@
           <button id="crafthammer" title="Increases stone per click by 4.">Craft Hammer: Requires 10 wood, 30 stone, 10 rope, and 20 energy; takes 4 seconds.</button> 
         </div>
 
+        <div id="knife" style="display:none">
+          <br><br>
+          <button id="craftknife" title="Increases grass per click by 4.">Craft Knife: Requires 10 wood, 10 stone, 5 rope, and 10 energy; takes 2 seconds.</button> 
+        </div>
+
     </div>
 
     <div id="buildings" style="display:none">
         <h2>Buildings</h2>
+        
+        <div id="campfirediv" style="display:none">
+          <button id="campfire" >Build campfire: Enables you to cook food.</button>
+        </div>
 
-        <div> 
-          <button id="buildhouse" style="display:none" title="Increase max storage by 100.">Build house: Requires 50 wood, 10 stone, 10 plants, and 50 energy. Takes 10 seconds. </button>
+        <div id="buildhousediv" style="display:none"> 
+          <br>
+          <button id="buildhouse"  title="Increase max storage by 100.">Build house: Requires 50 wood, 10 stone, 10 plants, and 50 energy. Takes 10 seconds. </button>
         </div>
         
         <div id="house" style="display:none">
           <h4>House</h4>
           <p id="houselevelamt">Level 1/100</p>
           <button id="upgradehouse" title="Increase max storage by 100.">Upgrade House: Requires 25 wood, 5 stone, 10 plants and 30 energy. Takes 6 seconds. </button>
-        <br><br>
+        </div>        
+
+        <div id="workbenchdiv" style="display:none">
+          <br>
+          <button id="buildworkbench" title="Allows you to build tools.">Build workbench: Requires 20 wood, 10 stone, and 25 energy. Takes 5 seconds. </button>
         </div>
-        
-        <button id="campfire" style="display:none">Build campfire: Enables you to cook food.</button>
-        <br>
-        <button id="buildworkbench" style="display:none" title="Allows you to build tools.">Build workbench: Requires 20 wood, 10 stone, and 25 energy. Takes 5 seconds. </button>
+
         <div id="workbench" style="display:none">
           <h4>Workbench</h4>
-          <p id="workbenchlevelamt">Level 1/3</p>
+          <p id="workbenchlevelamt">Level 1/4</p>
           <button id="upgradeworkbench" title="Unlocks new tool designs.">Upgrade Workbench: Requires 10 wood, 5 stone and 20 energy. Takes 4 seconds.</button>
           <br><br>
         </div>
 
-        <div id="speardiv" style="display:none">
-          <button id="designspear" title="Unlocks spear.">Design spear: Requires 10 wood, 5 stone, 3 rope, and 5 energy; takes 1 second.</button>
-          <br><br>
+        <div id="hammerdiv" style="display:none">
+          <button id="designhammer" title="Unlocks hammer.">Design hammer: Requires 5 wood, 15 stone, 5 rope, and 10 energy; takes 2 seconds.</button>
+        </div>
+
+        <div id="knifediv" style="display:none">
+          <br>
+          <button id="designknife" title="Unlocks knife.">Design knife: Requires 5 wood, 5 stone, 2 rope, and 5 energy; takes 1 second.</button>
         </div>
 
         <div id="axediv" style="display:none">
+          <br>
           <button id="designaxe" title="Unlocks axe.">Design axe: Requires 5 wood, 10 stone, 5 rope, and 10 energy; takes 2 seconds.</button>
-          <br><br>
         </div>
-  
-        <div id="hammerdiv" style="display:none">
-          <button id="designhammer" title="Unlocks hammer.">Design hammer: Requires 5 wood, 15 stone, 5 rope, and 10 energy; takes 2 seconds.</button>
+
+        <div id="speardiv" style="display:none">
+          <br>
+          <button id="designspear" title="Unlocks spear.">Design spear: Requires 10 wood, 5 stone, 3 rope, and 5 energy; takes 1 second.</button>
         </div>
 
     </div>
