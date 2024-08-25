@@ -82,69 +82,85 @@
 
     <div id="tools" style="display:none">
         <h2>Tools</h2>
-        <div id="axe" style="display:none">
-          <button id="craftaxe" title="Increases wood per click by 4.">Craft Axe: Requires 5 wood, 5 stone, 10 rope, and 15 energy; takes 3 seconds.</button>
-        </div>
-        <br id="toolsspace" style="display:none">
-        <div id="hammer" style="display:none">
-          <button id="crafthammer" title="Increases stone per click by 4.">Craft Hammer: Requires 5 wood, 15 stone, 5 rope, and 20 energy; takes 4 seconds.</button>
-        </div>
 
         <div id="spear" style="display:none">
-          <button id="craftspear" title="Unlocks hunting.">Craft Spear: Requires 10 wood, 5 stone, 5 rope, and 20 energy; takes 4 seconds.</button>
+          <button id="craftspear" title="Unlocks hunting.">Craft Spear: Requires 20 wood, 10 stone, 5 rope, and 10 energy; takes 2 seconds.</button>
+          <br><br>
         </div>
+
+        <div id="axe" style="display:none">
+          <button id="craftaxe" title="Increases wood per click by 4.">Craft Axe: Requires 10 wood, 20 stone, 10 rope, and 20 energy; takes 4 seconds.</button>
+        </div>
+
+        <br id="toolsspace" style="display:none">
+        
+        <div id="hammer" style="display:none">
+          <button id="crafthammer" title="Increases stone per click by 4.">Craft Hammer: Requires 10 wood, 30 stone, 10 rope, and 20 energy; takes 4 seconds.</button> 
+        </div>
+
     </div>
 
     <div id="buildings" style="display:none">
         <h2>Buildings</h2>
+
         <div> 
-          <button id="buildhouse" title="Increase max storage by 100.">Build house: Requires 50 wood, 10 stone, 10 plants, and 50 energy. Takes 10 seconds. </button>
+          <button id="buildhouse" style="display:none" title="Increase max storage by 100.">Build house: Requires 50 wood, 10 stone, 10 plants, and 50 energy. Takes 10 seconds. </button>
         </div>
         
         <div id="house" style="display:none">
           <h4>House</h4>
           <p id="houselevelamt">Level 1/100</p>
           <button id="upgradehouse" title="Increase max storage by 100.">Upgrade House: Requires 25 wood, 5 stone, 10 plants and 30 energy. Takes 6 seconds. </button>
+        <br><br>
         </div>
-        <br>
+        
         <button id="campfire" style="display:none">Build campfire: Enables you to cook food.</button>
+        <br>
+        <button id="buildworkbench" style="display:none" title="Allows you to build tools.">Build workbench: Requires 20 wood, 10 stone, and 25 energy. Takes 5 seconds. </button>
+        <div id="workbench" style="display:none">
+          <h4>Workbench</h4>
+          <p id="workbenchlevelamt">Level 1/3</p>
+          <button id="upgradeworkbench" title="Unlocks new tool designs.">Upgrade Workbench: Requires 10 wood, 5 stone and 20 energy. Takes 4 seconds.</button>
+          <br><br>
+        </div>
+
+        <div id="speardiv" style="display:none">
+          <button id="designspear" title="Unlocks spear.">Design spear: Requires 10 wood, 5 stone, 3 rope, and 5 energy; takes 1 second.</button>
+          <br><br>
+        </div>
+
+        <div id="axediv" style="display:none">
+          <button id="designaxe" title="Unlocks axe.">Design axe: Requires 5 wood, 10 stone, 5 rope, and 10 energy; takes 2 seconds.</button>
+          <br><br>
+        </div>
+  
+        <div id="hammerdiv" style="display:none">
+          <button id="designhammer" title="Unlocks hammer.">Design hammer: Requires 5 wood, 15 stone, 5 rope, and 10 energy; takes 2 seconds.</button>
+        </div>
+
     </div>
     
     <div id="technology" style="display:none">
       <h2>Technology</h2>
     
       <div id="ropediv">
-        <button id="ropemaking" title="Unlocks rope, enables you to research toolmaking.">Research ropemaking: Requires 5 wood, 5 stone, 20 plants, and 10 energy; takes 2 seconds.</button>
+        <button id="ropemaking" title="Unlocks rope, enables you to research toolmaking.">Research ropemaking: Requires 20 plants and 10 energy; takes 2 seconds.</button>
         <br><br>
       </div>
     
       <div id="toolsdiv" style="display:none">
-        <button id="toolmaking" title="Unlocks tools section, enables you to research hammer making and axe making.">Research toolmaking: Requires 10 wood, 5 stone, 15 rope, and 25 energy; takes 5 seconds.</button>
+        <button id="toolmaking" title="Unlocks tools section, unlocks workbench.">Research toolmaking: Requires 10 wood, 5 stone, 15 rope, and 25 energy; takes 5 seconds.</button>
         <br><br>
       </div>
         
-      <div id="axediv" style="display:none">
-        <button id="axemaking" title="Unlocks axe.">Research axe making: Requires 10 wood, 15 stone, 10 rope, and 20 energy; takes 4 seconds.</button>
-        <br><br>
+      <div id="firediv">
+        <button id="fire" title="Unlocks campfire, enables you to research housing.">Research fire: Requires 50 wood, 10 stone, 25 plants, and 25 energy; takes 5 seconds.</button>
       </div>
 
-      <div id="hammerdiv" style="display:none">
-        <button id="hammermaking" title="Unlocks hammer.">Research hammer making: Requires 10 wood, 25 stone, 5 rope, and 20 energy; takes 4 seconds.</button>
-        <br><br>
+      <div id="housediv" style="display:none">
+        <button id="reshouse" title="Unlocks house.">Research housing: Requires 25 wood, 10 stone, 10 plants, and 25 energy; takes 5 seconds.</button>
       </div>
 
-      <div id="speardiv" style="display:none">
-        <button id="spearmaking" title="Unlocks spear.">Research spear making: Requires 25 wood, 5 stone, 5 rope, and 15 energy; takes 3 seconds.</button>
-        <br><br>
-      </div>
-        
-      <div id="buildingsdiv">
-        <button id="resbuildings" title="Unlocks buildings section.">Research buildings: Requires 25 wood, 10 stone, 10 plants, and 25 energy; takes 5 seconds.</button>
-      </div>
-        
-      <div id="firediv" style="display:none">
-        <button id="fire" title="Unlocks campfire.">Research fire: Requires 50 wood, 10 stone, 25 plants, and 25 energy; takes 5 seconds.</button>
-      </div>
     </div>
         
     <script src="script.js"></script>     
