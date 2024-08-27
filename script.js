@@ -27,7 +27,7 @@ let hammerdesign = false;
 let forestexplored = 0;
 let exploreforest = false;
 let stuff = 0;
-let maxstuff = 200;
+let maxstuff = 100;
 let developresearch = false;
 let researchhouse = false;
 let buildhouse = false;
@@ -59,10 +59,12 @@ let builder = false;
 
 /*
 //devmode
-wood=1000;
-stone=1000;
-plants= 1000;
+wood = 1000;
+stone = 1000;
+plants = 1000;
 rope = 1000;
+berries = 1000;
+meat = 1000;
 energy = 1000;
 clicks = 100;
 maxstuff = 10000;
@@ -174,7 +176,7 @@ document.getElementById("hunt").onclick=function(){
 
 function Hunt(){
 
-  if((Math.floor(Math.random()*4)+1)==1){
+  if((Math.floor(Math.random()*5)+1)==1){
     
     if(hunter == false){
       window.alert("Achievement Unlocked: HUNTER. Have a sucessful hunt.");
@@ -182,7 +184,7 @@ function Hunt(){
       document.getElementById("hunter").textContent = "Achievement Unlocked: HUNTER. Have a sucessful hunt.";
     }
 
-    huntamount = Math.floor(Math.random()*10)+1;
+    huntamount = Math.floor(Math.random()*100)+1;
     window.alert(`The hunt was sucessful! You have gained ${huntamount} meat!`);
 
     if(huntamount>(maxstuff-stuff)){
@@ -457,11 +459,11 @@ document.getElementById("eatmeat").onclick=function(){
   if(meat>0&&energy<100){
     meat--;
     stuff--;
-    if(energy>80){
+    if(energy>95){
       energy=100;
     }
     else{
-      energy+=20;
+      energy+=5;
     }
     Update();
   }
@@ -605,5 +607,47 @@ document.getElementById("achievements").onclick=function(){
   else{
     document.getElementById("achievements").textContent = "Achievements";
     document.getElementById("achievementsdisplay").style.display = "none";
+  }
+}
+
+document.getElementById("pause").onclick=function(){
+  window.alert("The game is paused right now! Click the OK button to continue!");
+}
+
+document.getElementById("discard").onclick=function(){
+  
+  let resource = window.prompt("What resource do you want to discard? Press b for berries, m for meat, w for wood, s for stone, p for plants, or r for rope. Click cancel if you changed your mind.");
+  if(resource==null){
+    return;
+  } else if (resource == "b"){
+    berries = Discard(berries, "berry(ies)");
+  } else if (resource == "m"){
+    meat = Discard(meat, "piece(s) of meat");
+  } else if (resource == "w"){
+    wood = Discard(wood, "piece(s) of wood");
+  } else if (resource == "s"){
+    stone = Discard(stone, "stone(s)");
+  } else if (resource == "p"){
+    plants = Discard(plants, "plant(s)");
+  } else {
+    rope = Discard(rope, "rope(s)");
+  } 
+  Update();
+}
+
+function Discard(resource, name){
+  let amount = Number(window.prompt(`How many ${name} would you like to discard?`));
+  if(resource>=amount){
+    if(window.confirm(`Are you sure you want to discard ${amount} ${name}?`)){
+      resource-=amount;
+      stuff-=amount;
+      return resource;
+    }
+    else{
+      return resource;
+    }
+  }else{
+    window.alert(`That is more ${name} than you currently have!`);
+    return resource;
   }
 }
