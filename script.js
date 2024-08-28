@@ -113,7 +113,7 @@ function Update(){
   meatamt.textContent=`Meat: ${meat}`;
   forestexploredamt.textContent=forestexplored+"% explored";
   storageamt.textContent=`You are using ${stuff}/${maxstuff} of your space.`;
-  houselevelamt.textContent=`Level ${houselevel}/100`;
+  houselevelamt.textContent=`Level ${houselevel}/10`;
   workbenchlevelamt.textContent=`Level ${workbenchlevel}/4`;
 
   if(clicks>=25&&forestunlocked==false){
@@ -128,20 +128,48 @@ function Update(){
 }
 
 function getResource(resource, source, perclick, name, space, maxspace, spacename){
-  if (source>=perclick&&(maxspace-space)>=perclick){
+  if (source>0 && (maxspace-space)>0){
     clicks++;
-    resource+=perclick;
-    source-=perclick;
-    if(name!="plants"){
-    space+=perclick;
+    if(source>=perclick && (maxspace-space)>=perclick){
+      resource+=perclick;
+      source-=perclick;
+      if(name!="plants"){
+        space+=perclick;
+      } 
+    }else if (source<(maxspace-space)){
+      resource+=source;
+      if(name!="plants"){
+        space+=source;
+      }
+      source=0;
+    } else {
+      if(name=="plants"){
+        resource+=source;
+        source=0;
+      }
+      else{
+        resource+=(maxspace-space);
+        source-=(maxspace-space);
+        space=maxspace;
+      } 
     }
-    return [resource, source, space];
-  }else if(source<perclick){
+  } else if(source==0){
     window.alert(`There is not enough ${name} left!`);
+  } else {
+    if(name=="plants"){
+      clicks++;
+      if(source<perclick){
+        resource+=source;
+        source=0;
+      }else{
+        resource+=perclick;
+        source-=perclick;
+      }
+    } else {
+      window.alert(`You already have the maximum amount of ${spacename} you can have!`);
+    } 
   }
-  else{
-    window.alert(`You already have the maximum amount of ${spacename} you can have!`);
-  }
+return [resource, source, space];
 }
 
 document.getElementById("getwood").onclick=function(){
@@ -214,14 +242,14 @@ document.getElementById("makerope").onclick=function(){
 
 function Create(Rwood, Rstone, Rplants, Rrope, Renergy, time, researching, name, id, func, action){
   
-  let response = "y";
+  let response = true;
 
   if(wood>=Rwood && stone>=Rstone && plants>=Rplants && rope>=Rrope && energy>Renergy && researching==false){
     if(energy<Renergy+10){
-    response=window.prompt("Are you sure? Your energy will be reduced to less than 10 if you perform this action! (y/n)");
+    response=window.confirm("Are you sure? Your energy will be reduced to less than 10 if you perform this action!");
     }
 
-    if(response=="y"){
+    if(response==true){
       wood-=Rwood;
       stone-=Rstone;
       plants-=Rplants;
@@ -253,25 +281,25 @@ function Create(Rwood, Rstone, Rplants, Rrope, Renergy, time, researching, name,
 }
 
 document.getElementById("reshouse").onclick=function(){
-  researchhouse=Create(25, 10, 10, 0, 25, 5000, researchhouse, "housing", "reshouse", ResearchHouse, "researching");
+  researchhouse=Create(25, 5, 5, 0, 25, 5000, researchhouse, "housing", "reshouse", ResearchHouse, "researching");
 }
 
 function ResearchHouse(){
   window.alert("You have researched housing! House unlocked!");
   document.getElementById("reshouse").style.display="none";
-  document.getElementById("buildhousediv").style.display="block";
+  document.getElementById("buildhouse").style.display="block";
 }
 
 document.getElementById("fire").onclick=function(){
-  fireresearch=Create(50, 10, 25, 0, 25, 5000, fireresearch, "fire", "fire", ResearchFire, "researching");
+  fireresearch=Create(15, 10, 5, 0, 25, 5000, fireresearch, "fire", "fire", ResearchFire, "researching");
 }
 
 function ResearchFire(){
   window.alert("You have researched fire! Campfire building unlocked! You are able to research housing!");
-  document.getElementById("housediv").style.display="block";
+  document.getElementById("reshouse").style.display="block";
   document.getElementById("buildings").style.display="block";
-  document.getElementById("firediv").style.display="none";
-  document.getElementById("campfirediv").style.display="block";
+  document.getElementById("fire").style.display="none";
+  document.getElementById("campfire").style.display="block";
 }
 
 document.getElementById("craftaxe").onclick=function(){
@@ -280,8 +308,7 @@ document.getElementById("craftaxe").onclick=function(){
 
 function CraftAxe(){
  window.alert("You have crafted an axe! Wood per click increased by 4.");
- document.getElementById("axe").style.display="none";
- document.getElementById("toolsspace").style.display="none";
+ document.getElementById("craftaxe").style.display="none";
  woodperclick+=4;
  Update();
 }
@@ -292,8 +319,7 @@ document.getElementById("crafthammer").onclick=function(){
 
 function CraftHammer(){
   window.alert("You have crafted a hammer! Stone per click increased by 4.");
-  document.getElementById("hammer").style.display="none";
-  document.getElementById("toolsspace").style.display="none";
+  document.getElementById("crafthammer").style.display="none";
   stoneperclick+=4;
   Update();
 }
@@ -304,7 +330,7 @@ document.getElementById("craftspear").onclick=function(){
 
 function CraftSpear(){
   window.alert("You have crafted a spear! Hunting unlocked!");
-  document.getElementById("spear").style.display="none";
+  document.getElementById("craftspear").style.display="none";
   document.getElementById("hunt").style.display="block";
   document.getElementById("meatamt").style.display="block";
   document.getElementById("eatmeat").style.display="block";
@@ -316,7 +342,7 @@ document.getElementById("craftknife").onclick=function(){
 
 function CraftKnife(){
   window.alert("You have crafted a knife! Grass per click increased by 4!");
-  document.getElementById("knife").style.display="none";
+  document.getElementById("craftknife").style.display="none";
   plantsperclick+=4;
   Update();
 }
@@ -327,21 +353,21 @@ document.getElementById("ropemaking").onclick=function(){
 
 function ResearchRope(){
   window.alert("You have researched rope making! Rope unlocked! You are able to research toolmaking!");
-  document.getElementById("ropediv").style.display="none";
+  document.getElementById("ropemaking").style.display="none";
   document.getElementById("rope").style.display="block";
-  document.getElementById("toolsdiv").style.display="block";
+  document.getElementById("toolmaking").style.display="block";
 }
 
 document.getElementById("toolmaking").onclick=function(){
-  toolsresearch=Create(10, 5, 0, 15, 25, 5000, toolsresearch, "toolmaking", "toolmaking", ResearchTools, "researching");
+  toolsresearch=Create(10, 5, 0, 5, 20, 4000, toolsresearch, "toolmaking", "toolmaking", ResearchTools, "researching");
 }
 
 function ResearchTools(){
   window.alert("You have researched toolmaking! Tools section unlocked! Workbench unlocked!");
-  document.getElementById("toolsdiv").style.display="none";
+  document.getElementById("toolmaking").style.display="none";
   document.getElementById("tools").style.display="block";
   document.getElementById("buildings").style.display="block";
-  document.getElementById("workbenchdiv").style.display="block";
+  document.getElementById("buildworkbench").style.display="block";
 }
 
 document.getElementById("designhammer").onclick=function(){
@@ -350,11 +376,8 @@ document.getElementById("designhammer").onclick=function(){
 
 function DesignHammer(){
   window.alert("You have designed a hammer! Hammer unlocked!");
-  document.getElementById("hammerdiv").style.display="none";
-  document.getElementById("hammer").style.display="block";
-  if(document.getElementById("axe").style.display=="block"){
-    document.getElementById("toolsspace").style.display="block";
-  }
+  document.getElementById("designhammer").style.display="none";
+  document.getElementById("crafthammer").style.display="block";
 }
 
 document.getElementById("designaxe").onclick=function(){
@@ -363,11 +386,8 @@ document.getElementById("designaxe").onclick=function(){
 
 function DesignAxe(){
   window.alert("You have designed an axe! Axe unlocked!");
-  document.getElementById("axediv").style.display="none";
-  document.getElementById("axe").style.display="block";
-  if(document.getElementById("hammer").style.display=="block"){
-    document.getElementById("toolsspace").style.display="block";
-  }
+  document.getElementById("designaxe").style.display="none";
+  document.getElementById("craftaxe").style.display="block";
 }
 
 
@@ -377,8 +397,8 @@ document.getElementById("designspear").onclick=function(){
 
 function DesignSpear(){
   window.alert("You have designed a spear! Spear unlocked!");
-  document.getElementById("speardiv").style.display="none";
-  document.getElementById("spear").style.display="block";
+  document.getElementById("designspear").style.display="none";
+  document.getElementById("craftspear").style.display="block";
 }
 
 document.getElementById("designknife").onclick=function(){
@@ -387,8 +407,8 @@ document.getElementById("designknife").onclick=function(){
 
 function DesignKnife(){
   window.alert("You have designed a knife! Knife unlocked!");
-  document.getElementById("knifediv").style.display="none";
-  document.getElementById("knife").style.display="block";
+  document.getElementById("designknife").style.display="none";
+  document.getElementById("craftknife").style.display="block";
 }
 
 function Tick(){
@@ -532,7 +552,7 @@ function BuildHouse(){
   }
 
   window.alert("You have built a house! Max storage increased by 100!");
-  document.getElementById("buildhousediv").style.display="none";
+  document.getElementById("buildhouse").style.display="none";
   document.getElementById("house").style.display="block";
   maxstuff+=100;
   Update();
@@ -540,8 +560,8 @@ function BuildHouse(){
   
 document.getElementById("upgradehouse").onclick=function(){
 
-  if(houselevel<100){
-    upgradehouse=Create(25, 5, 10, 0, 30, 6000, upgradehouse, "your house", "upgradehouse", UpgradeHouse, "upgrading");
+  if(houselevel<10){
+    upgradehouse=Create(40, 10, 10, 0, 40, 8000, upgradehouse, "your house", "upgradehouse", UpgradeHouse, "upgrading");
   }
   else{
     window.alert("The house is fully upgraded!");
@@ -564,16 +584,16 @@ document.getElementById("buildworkbench").onclick=function(){
 
 function BuildWorkbench(){
   window.alert("You have built a workbench! Hammer design unlocked!");
-  document.getElementById("hammerdiv").style.display="block";
+  document.getElementById("designhammer").style.display="block";
   
-  document.getElementById("workbenchdiv").style.display="none";
+  document.getElementById("buildworkbench").style.display="none";
   document.getElementById("workbench").style.display="block";
 }
   
 document.getElementById("upgradeworkbench").onclick=function(){
 
   if(workbenchlevel<4){
-    upgradeworkbench=Create(10, 5, 0, 0, 20, 4000, upgradeworkbench, "your workbench", "upgradeworkbench", UpgradeWorkbench, "upgrading");
+    upgradeworkbench=Create(10, 5, 0, 0, 15, 3000, upgradeworkbench, "your workbench", "upgradeworkbench", UpgradeWorkbench, "upgrading");
   }
   else{
     window.alert("The workbench is fully upgraded!");
@@ -584,15 +604,15 @@ function UpgradeWorkbench(){
   workbenchlevel++;
   if(workbenchlevel==2){
     window.alert(`You have upgraded your workbench to level 2! Knife design unlocked!`);
-    document.getElementById("knifediv").style.display="block";
+    document.getElementById("designknife").style.display="block";
   }
   else if(workbenchlevel==3){
     window.alert(`You have upgraded your workbench to level 3! Axe design unlocked!`);
-    document.getElementById("axediv").style.display="block";
+    document.getElementById("designaxe").style.display="block";
   }
   else if(workbenchlevel==4){
     window.alert(`You have upgraded your workbench to level 4! Spear design unlocked!`);
-    document.getElementById("speardiv").style.display="block";
+    document.getElementById("designspear").style.display="block";
 }
 
 document.getElementById("upgradeworkbench").textContent="Upgrade Workbench: Requires 10 wood, 5 stone and 20 energy. Takes 4 seconds.";
