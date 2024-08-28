@@ -57,7 +57,8 @@ let touchinggrass = false;
 let hunter = false;
 let builder = false;
 
-/*
+let buildcampfire = false;
+
 //devmode
 wood = 1000;
 stone = 1000;
@@ -68,7 +69,7 @@ meat = 1000;
 energy = 1000;
 clicks = 100;
 maxstuff = 10000;
-*/
+
 
 woodamt = document.getElementById("woodamt");
 treeamt = document.getElementById("treeamt");
@@ -299,7 +300,7 @@ function ResearchFire(){
   document.getElementById("reshouse").style.display="block";
   document.getElementById("buildings").style.display="block";
   document.getElementById("fire").style.display="none";
-  document.getElementById("campfire").style.display="block";
+  document.getElementById("buildcampfire").style.display="block";
 }
 
 document.getElementById("craftaxe").onclick=function(){
@@ -670,4 +671,14 @@ function Discard(resource, name){
     window.alert(`That is more ${name} than you currently have!`);
     return resource;
   }
+}
+
+document.getElementById("buildcampfire").onclick=function(){
+  buildcampfire=Create(20, 20, 5, 0, 30, 6000, buildcampfire, "a campfire", "buildcampfire", BuildCampfire, "building");
+}
+
+function BuildCampfire(){
+  window.alert("You have built a campfire! Cooking unlocked!");
+  document.getElementById("buildcampfire").style.display="none";
+  document.getElementById("campfire").style.display="block";
 }
