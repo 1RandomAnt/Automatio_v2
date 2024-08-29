@@ -59,6 +59,7 @@ let builder = false;
 
 let buildcampfire = false;
 
+/*
 //devmode
 wood = 1000;
 stone = 1000;
@@ -69,7 +70,7 @@ meat = 1000;
 energy = 1000;
 clicks = 100;
 maxstuff = 10000;
-
+*/
 
 woodamt = document.getElementById("woodamt");
 treeamt = document.getElementById("treeamt");
