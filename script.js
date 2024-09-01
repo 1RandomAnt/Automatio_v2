@@ -58,46 +58,50 @@ let hunter = false;
 let builder = false;
 
 let buildcampfire = false;
+let cfMeat = 0;
+let cfWood = 0;
+let cfCookedMeat = 0;
 
-/*
-//devmode
-wood = 1000;
-stone = 1000;
-plants = 1000;
-rope = 1000;
-berries = 1000;
-meat = 1000;
-energy = 1000;
-clicks = 100;
-maxstuff = 10000;
-*/
+let maxcfMeat = 20;
+let maxcfWood = 20;
+let maxcfCookedMeat = 20;
+let cookedmeat = 0;
 
-woodamt = document.getElementById("woodamt");
-treeamt = document.getElementById("treeamt");
-woodperclickamt = document.getElementById("woodperclickamt");
-rockamt = document.getElementById("rockamt");
-stoneamt = document.getElementById("stoneamt");
-stoneperclickamt = document.getElementById("stoneperclickamt");
-grassamt = document.getElementById("grassamt");
-plantamt = document.getElementById("plantamt");
-plantsperclickamt = document.getElementById("plantsperclickamt")
-ropeamt = document.getElementById("ropeamt");
-ropeperclickamt = document.getElementById("ropeperclickamt");
-berriesamt = document.getElementById("berriesamt");
-berriesperclickamt = document.getElementById("berriesperclickamt");
-energyamt = document.getElementById("energyamt");
-wildberriesamt = document.getElementById("wildberriesamt");
-meatamt = document.getElementById("meatamt");
+let campfirelevel = 1;
+let upgradecampfire = false;
 
-forestexploredamt = document.getElementById("forestexploredamt");
-storageamt = document.getElementById("storageamt");
-houselevelamt = document.getElementById("houselevelamt");
-workbenchlevelamt = document.getElementById("workbenchlevelamt");
+const woodamt = document.getElementById("woodamt");
+const treeamt = document.getElementById("treeamt");
+const woodperclickamt = document.getElementById("woodperclickamt");
+const rockamt = document.getElementById("rockamt");
+const stoneamt = document.getElementById("stoneamt");
+const stoneperclickamt = document.getElementById("stoneperclickamt");
+const grassamt = document.getElementById("grassamt");
+const plantamt = document.getElementById("plantamt");
+const plantsperclickamt = document.getElementById("plantsperclickamt")
+const ropeamt = document.getElementById("ropeamt");
+const ropeperclickamt = document.getElementById("ropeperclickamt");
+const berriesamt = document.getElementById("berriesamt");
+const berriesperclickamt = document.getElementById("berriesperclickamt");
+const energyamt = document.getElementById("energyamt");
+const wildberriesamt = document.getElementById("wildberriesamt");
+const meatamt = document.getElementById("meatamt");
 
-forestdiv = document.getElementById("forestdiv");
+const forestexploredamt = document.getElementById("forestexploredamt");
+const storageamt = document.getElementById("storageamt");
+const houselevelamt = document.getElementById("houselevelamt");
+const workbenchlevelamt = document.getElementById("workbenchlevelamt");
+
+const forestdiv = document.getElementById("forestdiv");
+
+const cfMeatamt = document.getElementById("cfMeatamt");
+const cfWoodamt = document.getElementById("cfWoodamt");
+const cfCookedMeatamt = document.getElementById("cfCookedMeatamt");
+const cookedmeatamt = document.getElementById("cookedmeatamt")
+const campfirelevelamt = document.getElementById("campfirelevelamt");
 
 function Update(){
-  woodamt.textContent="You have "+wood+" pieces of wood.";
+  woodamt.textContent="You have "+wood+" piece(s) of wood.";
   treeamt.textContent=`Number of trees: ${tree}/${maxtree}`;
   woodperclickamt.textContent="Wood per click: "+woodperclick;
   rockamt.textContent="Number of rocks: "+rock;
@@ -106,7 +110,7 @@ function Update(){
   grassamt.textContent=`Clumps of grass: ${grass}/${maxgrass}`;
   plantamt.textContent= "You have "+plants+" plant(s).";
   plantsperclickamt.textContent="Plant(s) per click: "+plantsperclick;
-  ropeamt.textContent= "You have "+rope+" rope.";
+  ropeamt.textContent= "You have "+rope+" rope(s).";
   ropeperclickamt.textContent="Rope per click: "+ropeperclick;
   berriesamt.textContent="Berries: "+berries;
   berriesperclickamt.textContent="Berries per click: "+berriesperclick;
@@ -117,6 +121,12 @@ function Update(){
   storageamt.textContent=`You are using ${stuff}/${maxstuff} of your space.`;
   houselevelamt.textContent=`Level ${houselevel}/10`;
   workbenchlevelamt.textContent=`Level ${workbenchlevel}/4`;
+  
+  cfMeatamt.textContent=`Meat: ${cfMeat}/${maxcfMeat}`;
+  cfWoodamt.textContent=`Wood: ${cfWood}/${maxcfWood}`;
+  cfCookedMeatamt.textContent=`Cooked Meat: ${cfCookedMeat}/${maxcfCookedMeat}`;
+  cookedmeatamt.textContent=`Cooked Meat: ${cookedmeat}`;
+  campfirelevelamt.textContent=`Level ${campfirelevel}/10`;
 
   if(clicks>=25&&forestunlocked==false){
     forestdiv.style.display="block";
@@ -444,6 +454,24 @@ function Tick(){
   if(energy==10){
     window.alert("You are very tired! You need to eat some food soon, or you will lose!");
   }
+
+  if(cfMeat>=campfirelevel&&cfWood>=campfirelevel&&campfirelevel<=(maxcfCookedMeat-cfCookedMeat)){
+    cfMeat-=campfirelevel;
+    cfWood-=campfirelevel;
+    cfCookedMeat+=campfirelevel;
+  } else if (cfMeat<=cfWood&&cfMeat<=(maxcfCookedMeat-cfCookedMeat)){
+    cfWood-=cfMeat;
+    cfCookedMeat+=cfMeat;
+    cfMeat=0;
+  } else if (cfWood<=(maxcfCookedMeat-cfCookedMeat)){
+    cfMeat-=cfWood;
+    cfCookedMeat+=cfWood;
+    cfWood=0;
+  } else {
+    cfMeat-=(maxcfCookedMeat-cfCookedMeat);
+    cfWood-=(maxcfCookedMeat-cfCookedMeat);
+    cfCookedMeat=maxcfCookedMeat;
+  }
 }
 
 document.getElementById("eatberries").onclick=function(){
@@ -496,10 +524,6 @@ document.getElementById("eatmeat").onclick=function(){
     window.alert("You are already full!");
   }
   
-}
-
-document.getElementById("campfire").onclick=function(){
-  window.alert("Coming soon...");
 }
 
 document.getElementById("exploreforest").onclick=function(){
@@ -574,7 +598,7 @@ function UpgradeHouse(){
   houselevel++;
   window.alert(`You have upgraded your house to level ${houselevel}! Max storage increased by 100!`);
 
-  document.getElementById("upgradehouse").textContent="Upgrade House: Requires 25 wood, 5 stone, 10 plants and 30 energy. Takes 6 seconds.";
+  document.getElementById("upgradehouse").textContent="Upgrade House: Requires 40 wood, 10 stone, 10 plants and 40 energy. Takes 8 seconds.";
   upgradehouse=false;
   maxstuff+=100;
   Update();
@@ -637,8 +661,12 @@ document.getElementById("pause").onclick=function(){
 }
 
 document.getElementById("discard").onclick=function(){
-  
-  let resource = window.prompt("What resource do you want to discard? Press b for berries, m for meat, w for wood, s for stone, p for plants, or r for rope. Click cancel if you changed your mind.");
+  let resource = "";
+
+  while(!(resource=="b"||resource=="m"||resource=="w"||resource=="s"||resource=="p"||resource=="r"||resource=="c"||resource==null)){
+    resource = window.prompt("What resource do you want to discard? Press b for berries, m for meat, w for wood, s for stone, p for plants, r for rope, or c for cooked meat. Click cancel if you changed your mind.");
+  }
+
   if(resource==null){
     return;
   } else if (resource == "b"){
@@ -651,14 +679,21 @@ document.getElementById("discard").onclick=function(){
     stone = Discard(stone, "stone(s)");
   } else if (resource == "p"){
     plants = Discard(plants, "plant(s)");
-  } else {
+  } else if (resource == "r"){
     rope = Discard(rope, "rope(s)");
-  } 
+  } else {
+    cookedmeat = Discard(cookedmeat, "piece(s) of cooked meat");
+  }
   Update();
 }
 
 function Discard(resource, name){
-  let amount = Number(window.prompt(`How many ${name} would you like to discard?`));
+  let amount = NaN;
+  
+  while(isNaN(amount)){
+    amount = Number(window.prompt(`How many ${name} would you like to discard?`));
+  }
+  
   if(resource>=amount){
     if(window.confirm(`Are you sure you want to discard ${amount} ${name}?`)){
       resource-=amount;
@@ -682,4 +717,101 @@ function BuildCampfire(){
   window.alert("You have built a campfire! Cooking unlocked!");
   document.getElementById("buildcampfire").style.display="none";
   document.getElementById("campfire").style.display="block";
+  document.getElementById("upgradecampfire").style.display="block";
+  document.getElementById("meatamt").style.display="block";
+  document.getElementById("eatmeat").style.display="block";
+  document.getElementById("cookedmeatamt").style.display="block";
+  document.getElementById("eatcookedmeat").style.display="block";
+}
+
+function Machine(source, resource, storage, space, maxspace, resourcename, action){
+  let amount = NaN;
+
+  while(isNaN(amount)){
+    amount = Number(window.prompt(`How much ${resourcename} would you like to ${action}?`));
+  }
+  
+  if(amount>source){
+    window.alert(`That is more ${resourcename} than you currently have!`);
+  } else if (amount>(maxspace-space)){
+    source-=(maxspace-space);
+    resource+=(maxspace-space);
+    storage-=(maxspace-space);
+    space=maxspace;
+  }else{
+    source-=amount;
+    resource+=amount;
+    storage-=amount;
+    space+=amount;
+  }
+  return [source, resource, storage, space];
+}
+
+document.getElementById("addMeat").onclick=function(){
+  [meat, cfMeat, stuff, cfMeat] = Machine(meat, cfMeat, stuff, cfMeat, maxcfMeat, "meat", "add");
+  Update();
+}
+
+document.getElementById("removeMeat").onclick=function(){
+  [cfMeat, meat, cfMeat, stuff] = Machine(cfMeat, meat, cfMeat, stuff, maxstuff, "meat", "remove");
+  Update();
+}
+
+document.getElementById("addWood").onclick=function(){
+  [wood, cfWood, stuff, cfWood] = Machine(wood, cfWood, stuff, cfWood, maxcfWood, "wood", "add");
+  Update();
+}
+
+document.getElementById("removeWood").onclick=function(){
+  [cfWood, wood, cfWood, stuff] = Machine(cfWood, wood, cfWood, stuff, maxstuff, "wood", "remove");
+  Update();
+}
+
+document.getElementById("removeCookedMeat").onclick=function(){
+  [cfCookedMeat, cookedmeat, cfCookedMeat, stuff] = Machine(cfCookedMeat, cookedmeat, cfCookedMeat, stuff, maxstuff, "cooked meat", "remove");
+  Update();
+}
+
+document.getElementById("eatcookedmeat").onclick=function(){
+
+  if(cookedmeat>0&&energy<200){
+    cookedmeat--;
+    stuff--;
+    if(energy>190){
+      energy=200;
+    }
+    else{
+      energy+=10;
+    }
+    Update();
+  }
+  else if(cookedmeat==0){
+    window.alert("You do not have any more cooked meat left!");
+  }
+  else{
+    window.alert("Eating cooked meat only allows you to reach up to 200 energy!");
+  }
+  
+}
+
+document.getElementById("upgradecampfire").onclick=function(){
+
+  if(campfirelevel<10){
+    upgradecampfire=Create(5, 10, 5, 0, 10, 2000, upgradecampfire, "your campfire", "upgradecampfire", UpgradeCampfire, "upgrading");
+  }
+  else{
+    window.alert("The campfire is fully upgraded!");
+  }
+}
+
+function UpgradeCampfire(){
+  campfirelevel++;
+  window.alert(`You have upgraded your campfire to level ${campfirelevel}! Capacity increased by 20! Items cooked per second increased by 1!`);
+
+  document.getElementById("upgradecampfire").textContent="Upgrade Campfire: Requires 5 wood, 10 stone, 5 plants and 10 energy. Takes 2 seconds.";
+  upgradecampfire=false;
+  maxcfCookedMeat+=20;
+  maxcfMeat+=20;
+  maxcfWood+=20;
+  Update();
 }
