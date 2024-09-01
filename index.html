@@ -30,10 +30,13 @@
     <button id="eatberries" title="Replenishes 2 energy.">Eat Berries</button>
 
     <p id="meatamt" style="display:none">Meat: 0</p>
-    <button id="eatmeat" title="Replenishes 20 energy." style="display:none">Eat Meat</button>
+    <button id="eatmeat" title="Replenishes 5 energy." style="display:none">Eat Meat</button>
+    <p id="cookedmeatamt" style="display:none">Cooked Meat: 0</p>
+    <button id="eatcookedmeat" title="Replenishes 10 energy. Allows you to go over the energy limit." style="display:none">Eat Cooked Meat</button>
+
 
     <div id="forestresources" style="display:none">
-    <p id="woodamt">You have 0 pieces of wood.</p>
+    <p id="woodamt">You have 0 piece(s) of wood.</p>
     <p id="stoneamt">You have 0 stone(s).</p>
     <p id="plantamt">You have 0 plant(s).</p>
     </div>
@@ -41,7 +44,7 @@
     <div id="rope" style="display:none">
       <p id="ropeperclickamt">Rope per click: 1</p>
       <button id="makerope" title="Turns plants into rope.">Make rope</button>
-      <p id="ropeamt">You have 0 rope.</p>
+      <p id="ropeamt">You have 0 rope(s).</p>
     </div>
 
     <h2>Environment</h2> 
@@ -102,20 +105,24 @@
         <button id="buildcampfire" title="Unlocks cooking." class="button" style="display:none">Build campfire: Requires 20 wood, 20 stone, 5 plants, 30 energy, takes 6 seconds. </button>
         
         <div id="campfire" style="display:none">
-          <h4>Campfire</h4>
-          <p id="campfiremeatamt">Meat: 0</p><button id="campfiremeat">Add/Remove meat</button>
-          <p id="campfirewoodamt">Wood: 0</p>
-          <button id="campfirewood">Add/Remove Wood</button>
-          <p id="campfirecookedmeatamt">Cooked Meat: 0</p>
-          <button id="campfirecookedmeat"> Take Cooked Meat</button>
+          <h4 id="Uses one wood for every item that is cooked. The amount of item(s) cooked per second is equivalent to the level of the campfire.">Campfire</h4>
+          <p id="campfirelevelamt">Level 1/10</p>
+          <button id="upgradecampfire" title="Increases capacity by 20, increases items cooked per second by 1.">Upgrade Campfire: Requires 5 wood, 10 stone, 5 plants and 10 energy. Takes 2 seconds.</button>
+          <p id="cfMeatamt">Meat: 0/20</p>
+          <button id="addMeat">Add Meat</button><button id="removeMeat">Remove Meat</button>
+
+          <p id="cfWoodamt">Wood: 0/20</p>
+          <button id="addWood">Add Wood</button><button id="removeWood">Remove Wood</button>
+          <p id="cfCookedMeatamt">Cooked Meat: 0/20</p>
+          <button id="removeCookedMeat">Remove Cooked Meat</button>
         </div>
         
-        <button id="buildhouse" title="Increase max storage by 100." class="button" style="display:none">Build house: Requires 50 wood, 10 stone, 10 plants, and 50 energy. Takes 10 seconds. </button>
+        <button id="buildhouse" title="Increases max storage by 100." class="button" style="display:none">Build house: Requires 50 wood, 10 stone, 10 plants, and 50 energy. Takes 10 seconds. </button>
         
         <div id="house" style="display:none">
           <h4>House</h4>
           <p id="houselevelamt">Level 1/10</p>
-          <button id="upgradehouse" title="Increase max storage by 100.">Upgrade House: Requires 40 wood, 10 stone, 10 plants and 40 energy. Takes 8 seconds. </button>
+          <button id="upgradehouse" title="Increases max storage by 100.">Upgrade House: Requires 40 wood, 10 stone, 10 plants and 40 energy. Takes 8 seconds. </button>
         </div>        
 
         <button id="buildworkbench" title="Allows you to build tools." class="button" style="display:none">Build workbench: Requires 20 wood, 10 stone, and 25 energy. Takes 5 seconds. </button>
