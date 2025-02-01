@@ -70,6 +70,9 @@ let cookedmeat = 0;
 let campfirelevel = 1;
 let upgradecampfire = false;
 
+let cavesrocks = 2500;
+let discovercaves = false;
+
 const woodamt = document.getElementById("woodamt");
 const treeamt = document.getElementById("treeamt");
 const woodperclickamt = document.getElementById("woodperclickamt");
@@ -100,6 +103,10 @@ const cfCookedMeatamt = document.getElementById("cfCookedMeatamt");
 const cookedmeatamt = document.getElementById("cookedmeatamt")
 const campfirelevelamt = document.getElementById("campfirelevelamt");
 
+const cavesrocksamt = document.getElementById("cavesrocksamt");
+const discovercavesE = document.getElementById("discovercaves");
+
+
 function Update(){
   woodamt.textContent="You have "+wood+" piece(s) of wood.";
   treeamt.textContent=`Number of trees: ${tree}/${maxtree}`;
@@ -127,6 +134,7 @@ function Update(){
   cfCookedMeatamt.textContent=`Cooked Meat: ${cfCookedMeat}/${maxcfCookedMeat}`;
   cookedmeatamt.textContent=`Cooked Meat: ${cookedmeat}`;
   campfirelevelamt.textContent=`Level ${campfirelevel}/10`;
+  cavesrocksamt.textContent= `Number of rocks: ${cavesrocks}`
 
   if(clicks>=25&&forestunlocked==false){
     forestdiv.style.display="block";
@@ -136,6 +144,10 @@ function Update(){
   if(clicks>=50 && techunlocked==false){
     research.style.display="block";
     techunlocked = true;
+  }
+
+  if(clicks>=500 && forestexploredamt==100&&discovercaves==false){
+    discovercavesE.style.display="block";
   }
 }
 
@@ -815,3 +827,19 @@ function UpgradeCampfire(){
   maxcfWood+=20;
   Update();
 }
+
+discovercavesE.onclick=function(){
+    discovercaves=Create(0, 0, 0, 0, 50, 10000, discovercaves, "the caves", "discovercaves", DiscoverCaves, "discovering");
+  }
+  
+  function DiscoverCaves(){
+    window.alert(`You have discovered the caves and unlocked the caves biome!`);
+    discovercavesE.style.display="none";
+    document.getElementById("caves").style.display="block";
+    Update();
+  }
+  
+  document.getElementById("minestone").onclick=function(){
+    [stone, cavesrocks, stuff] = getResource(stone, cavesrocks, 25, "stone", stuff, maxstuff, "material");
+    Update();
+  }
